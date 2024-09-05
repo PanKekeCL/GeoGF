@@ -20,8 +20,12 @@ const Home = () => {
               </ul>
             </nav>
             <div className="space-x-4">
+                <Link to="/login">
                 <button className="border border-gray-300  rounded-md px-4 py-2">Iniciar sesión</button>
+                </Link>
+                <Link to="/register">
                 <button className="bg-green-500 text-white rounded-md px-4 py-2">Registrarme</button>
+                </Link>
             </div>
           </header>
           <div className="flex-grow flex items-center justify-start bg-cover bg-center" style={{ backgroundImage: "url('https://static.vecteezy.com/system/resources/thumbnails/008/969/361/small_2x/multi-layers-gray-blue-dark-texture-3d-papercut-layers-in-gradient-banner-abstract-paper-cut-art-background-design-for-website-template-topography-map-concept-or-smooth-origami-paper-cut-vector.jpg')" }}>
