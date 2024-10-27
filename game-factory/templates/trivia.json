@@ -1,0 +1,31 @@
+{
+    "configuracion_global": {
+        "color_fondo": "",
+        "fuente": "",
+        "color_texto": "",
+        "tamano_texto": "",
+        "color_boton": "",
+        "color_texto_boton": ""
+    },
+    "tipo_juego": "",
+    "configuracion_trivia": {
+        "preguntas": [
+            {
+                "pregunta": "",
+                "imagen": "",
+                "respuestas": [
+                    {
+                        "texto": "",
+                        "es_correcta": true
+                    },
+                    {
+                        "texto": "",
+                        "es_correcta": false
+                    }
+                ]
+            }
+        ],
+        "mezclar_preguntas": false,
+        "mezclar_respuestas": true
+    }
+}
