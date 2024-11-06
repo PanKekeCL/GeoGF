@@ -1,12 +1,17 @@
 const express = require('express');
-const { createAdministrador, readAdministrador } = require('../controllers/administradores');
-
 const router = express.Router();
+const controller = require('../controllers/administradores');
 
-// Ruta para crear un administrador
-router.post('/', createAdministrador);
+// Crear un administrador
+router.post('/createAdministrador', controller.createAdministrador);
 
-// Ruta para obtener todos los administradores
-router.get('/', readAdministrador);
+// Leer administrador por correo
+router.get('/readAdministrador/:correo', controller.readAdministradorByCorreo);
+
+// Actualizar administrador por id
+router.get('/updateAdministrador/:id', controller.updateAdministrador);
+
+// Eliminar administrador por id
+router.get('/deleteAdministrador/:id', controller.deleteAdministrador);
 
 module.exports = router;

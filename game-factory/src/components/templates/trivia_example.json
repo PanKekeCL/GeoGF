@@ -1,0 +1,45 @@
+{
+    "configuracion_global": {
+        "color_fondo": "#ffffff",
+        "fuente": "sans-serif",
+        "color_texto": "#333333",
+        "tamano_texto": "text-lg",
+        "color_boton": "#4CAF50",
+        "color_texto_boton": "#ffffff"
+    },
+    "tipo_juego": "trivia",
+    "configuracion_trivia": {
+        "preguntas": [
+            {
+                "pregunta": "¿Cuál es la capital de Francia?",
+                "imagen": "",
+                "respuestas": [
+                    {
+                        "texto": "París",
+                        "es_correcta": true
+                    },
+                    {
+                        "texto": "Londres",
+                        "es_correcta": false
+                    }
+                ]
+            },
+            {
+                "pregunta": "¿Cuál es la moneda de Japón?",
+                "imagen": "",
+                "respuestas": [
+                    {
+                        "texto": "Yen",
+                        "es_correcta": true
+                    },
+                    {
+                        "texto": "Won",
+                        "es_correcta": false
+                    }
+                ]
+            }
+        ],
+        "mezclar_preguntas": false,
+        "mezclar_respuestas": true
+    }
+}
