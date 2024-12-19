@@ -1,0 +1,84 @@
+{
+    "nombre": "Descubre la Flora de Chile",
+    "descripcion": "Pon a prueba tus conocimientos sobre las plantas nativas más emblemáticas de Chile en esta trivia educativa.",
+    "tipo": "Trivia",
+    "mezclarPaginas": true,
+    "paginas": [
+        {
+            "enunciado": "¿Cuál es la flor nacional de Chile?",
+            "imagen": "https://example.com/copihue.jpg",
+            "mezclarRespuestas": true,
+            "respuestas": [
+                {
+                    "texto": "Copihue",
+                    "correcta": true
+                },
+                {
+                    "texto": "Lirio",
+                    "correcta": false
+                },
+                {
+                    "texto": "Rosa Mosqueta",
+                    "correcta": false
+                },
+                {
+                    "texto": "Amaranto",
+                    "correcta": false
+                }
+            ]
+        },
+        {
+            "enunciado": "Este árbol puede vivir más de 3.000 años. ¿Cómo se llama?",
+            "imagen": "https://example.com/alerce.jpg",
+            "mezclarRespuestas": true,
+            "respuestas": [
+                {
+                    "texto": "Alerce",
+                    "correcta": true
+                },
+                {
+                    "texto": "Peumo",
+                    "correcta": false
+                },
+                {
+                    "texto": "Mañío",
+                    "correcta": false
+                },
+                {
+                    "texto": "Quillay",
+                    "correcta": false
+                }
+            ]
+        },
+        {
+            "enunciado": "¿Qué planta chilena es famosa por sus hojas comestibles y gigantes?",
+            "imagen": "https://example.com/nalca.jpg",
+            "mezclarRespuestas": true,
+            "respuestas": [
+                {
+                    "texto": "Nalca",
+                    "correcta": true
+                },
+                {
+                    "texto": "Boldo",
+                    "correcta": false
+                },
+                {
+                    "texto": "Arrayán",
+                    "correcta": false
+                },
+                {
+                    "texto": "Lingue",
+                    "correcta": false
+                }
+            ]
+        }
+    ],
+    "ultimaModificacion": "2024-12-06 12:00:00",
+    "administrador": {
+        "nombre": "Sebastián",
+        "apellido": "Oyarzún",
+        "correo": "sebastian.oyarzun02@alumnos.uach.cl",
+        "organizacion": "UACh"
+    }
+}
