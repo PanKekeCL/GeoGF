@@ -98,8 +98,8 @@ const YourDesigns = () => {
     setActiveTab(tab);
   };
 
-  const handleEditClick = (id_minijuego) => {
-    navigate(`/minigame?id=${id_minijuego}`);
+  const handleEditClick = (id, tipo_diseño) => {
+    navigate(`/${tipo_diseño}?id=${id}`);
   };
 
   const handleDeleteClick = async (id_minijuego) => {

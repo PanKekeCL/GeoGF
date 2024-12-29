@@ -7,7 +7,7 @@ import Login from './pages/login';
 import Signup from './pages/signup';
 import Minigame from './pages/minigame';
 import Project from './pages/project';
-import Download from './pages/download';
+import Build from './pages/build';
 import { useAuth } from './context/useAuth';
 
 const PrivateRoute = ({ element }) => {
@@ -28,7 +28,7 @@ function App() {
         {/* Estas rutas están protegidas */}
         <Route path="/menu" element={<PrivateRoute element={<Menu />} />} />
         <Route path="/minigame" element={<PrivateRoute element={<Minigame />} />} />
-        <Route path="/download" element={<PrivateRoute element={<Download />} />} />
+        <Route path="/build" element={<PrivateRoute element={<Build />} />} />
         <Route path="/project" element={<PrivateRoute element={<Project />} />} />
       </Routes>
     </Router>

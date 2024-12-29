@@ -37,7 +37,7 @@ const Actions = ({ minijuegosCount, proyectosCount }) => {
             </div>
 
             {/* Botón para descargar */}
-            <Link to="/download">
+            <Link to="/build">
                 <button className="h-12 w-full bg-[#2EA9E6] font-bold py-3 rounded-md hover:bg-blue-500">
                     Construir y Desplegar
                 </button>

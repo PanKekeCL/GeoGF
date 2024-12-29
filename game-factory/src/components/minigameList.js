@@ -4,7 +4,7 @@ import EditIcon from "../assets/icons/editIcon.js";
 import BoxIcon from "../assets/icons/boxIcon.js";
 import CrossIcon from "../assets/icons/crossIcon.js";
 
-const MinigameList = ({ items = [], loading, onEditClick, onDeleteClick, onSelect }) => {
+const MinigameList = ({ items = [], loading, onEditClick, onDeleteClick, onSelectClick }) => {
 
     const calcularTiempoTranscurrido = (fechaModificacion) => {
         const fecha = new Date(fechaModificacion);
@@ -24,14 +24,7 @@ const MinigameList = ({ items = [], loading, onEditClick, onDeleteClick, onSelec
         if (segundos > 0) return `hace ${segundos} segundo${segundos > 1 ? 's' : ''}`;
         return "ahora";
     };
-    /*
-    const toggleSelect = (id) => {
-        setSelectedItems((prevSelected) => ({
-            ...prevSelected,
-            [id]: !prevSelected[id],
-        }));
-    };
-    */
+    
     return (
         <div className="flex items-top justify-center w-full max-h-[75%] px-5 overflow-auto mt-10">
             {loading ? (
@@ -82,7 +75,7 @@ const MinigameList = ({ items = [], loading, onEditClick, onDeleteClick, onSelec
                                     {onEditClick && (
                                         <button
                                             className="w-12 h-12 py-2 bg-[#F2E018] hover:bg-[#D9C816] text-white rounded-md flex items-center justify-center"
-                                            onClick={() => onEditClick(item._id)}
+                                            onClick={() => onEditClick(item._id, "minigame")}
                                         >
                                             <EditIcon color="#FFFFFF" size={24} />
                                         </button>
@@ -96,21 +89,21 @@ const MinigameList = ({ items = [], loading, onEditClick, onDeleteClick, onSelec
                                         </button>
                                     )}
                                     
-                                    {/*onSelect && (
+                                    {onSelectClick && (
                                         <button
-                                            className={`w-12 h-12 py-2 text-white rounded-md flex items-center justify-center ${selectedItems[item._id]
-                                                ? "bg-[#F2182A] hover:bg-[#D91626]"
-                                                : "bg-[#18F25A] hover:bg-[#16D94E]"
+                                            className={`w-12 h-12 py-2 text-white rounded-md flex items-center justify-center ${item.seleccionado === undefined || item.seleccionado === false
+                                                ? "bg-[#18F25A] hover:bg-[#16D94E]"
+                                                : "bg-[#F2182A] hover:bg-[#D91626]"
                                                 }`}
-                                            onClick={() => toggleSelect(item._id)}
+                                            onClick={() => onSelectClick(item._id)}
                                         >
-                                            {selectedItems[item._id] ? (
-                                                <CrossIcon color="#FFFFFF" size={24} />
-                                            ) : (
+                                            {item.seleccionado === undefined || item.seleccionado === false ? (
                                                 <BoxIcon color="#FFFFFF" size={24} />
+                                            ) : (
+                                                <CrossIcon color="#FFFFFF" size={24} />
                                             )}
                                         </button>
-                                    )*/}
+                                    )}
                                 </div>
                             </div>
                         </li>

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';  // Importamos Link de react-router-dom
 import BackIcon from '../assets/icons/backIcon';
 
-const DesignsToDownload = ({ selectedItems }) => {
+const DesignsToBuild = ({ selectedDesigns = [], handleBuild }) => {
   return (
     <div className="flex flex-col justify-between h-full overflow-auto p-5 bg-white">
 
@@ -16,11 +16,11 @@ const DesignsToDownload = ({ selectedItems }) => {
       <h2 className="font-semibold text-xl mb-4">Diseños seleccionados para descarga</h2>
       {/* Contenedor con lista de elementos seleccionados */}
       <div className="w-full max-h-[80%] overflow-y-auto px-5" style={{ maxHeight: '78%' }}>
-        {selectedItems.length === 0 ? (
+        {selectedDesigns.length === 0 ? (
           <p>No has seleccionado ningún diseño para descargar.</p>
         ) : (
           <ul className="space-y-5"> {/* Usamos space-y-5 para el espacio entre los <li> */}
-            {selectedItems.map((item, index) => (
+            {selectedDesigns.map((item, index) => (
               <li key={index} className="p-3 bg-white border rounded-md shadow mb-2">
                 {item.nombre}
               </li>
@@ -31,11 +31,12 @@ const DesignsToDownload = ({ selectedItems }) => {
 
       {/* Botón de descarga */}
       <button
-        className={`h-12 w-full rounded-md font-semibold ${selectedItems.length === 0
+        className={`h-12 w-full rounded-md font-semibold ${selectedDesigns.length === 0
             ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
             : 'bg-blue-500 text-gray-800 hover:bg-blue-600'
           }`}
-        disabled={selectedItems.length === 0}
+        disabled={selectedDesigns.length === 0}
+        onClick={handleBuild}
       >
         Descargar
       </button>
@@ -43,4 +44,4 @@ const DesignsToDownload = ({ selectedItems }) => {
   );
 };
 
-export default DesignsToDownload;
+export default DesignsToBuild;

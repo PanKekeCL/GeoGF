@@ -409,3 +409,66 @@ async def get_proyecto_by_id(id_proyecto: str):
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Error al obtener el proyecto"
         )
+
+# Función para obtener minijuego desde la base de datos
+async def obtener_minijuego_por_id(minijuego_id: str):
+    # Usando ObjectId para MongoDB, si usas otra base de datos, ajusta la consulta.
+    try:
+        minijuego = db.minijuegos.find_one({"_id": ObjectId(minijuego_id)})
+        if not minijuego:
+            raise HTTPException(status_code=404, detail=f"Minijuego con _id {minijuego_id} no encontrado")
+        return minijuego
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error al buscar minijuego: {str(e)}")
+
+# Función para obtener proyecto desde la base de datos
+async def obtener_proyecto_por_id(proyecto_id: str):
+    # Usando ObjectId para MongoDB, si usas otra base de datos, ajusta la consulta.
+    try:
+        proyecto = db.proyectos.find_one({"_id": ObjectId(proyecto_id)})
+        if not proyecto:
+            raise HTTPException(status_code=404, detail=f"Proyecto con _id {proyecto_id} no encontrado")
+        return proyecto
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error al buscar proyecto: {str(e)}")
+    
+# Construir archivos.js a partir de minijuegos o proyectos
+@router.get("/build/")
+async def build(diseños: schemas.Diseños, request: Request):
+    try:
+        # Recibir los minijuegos y proyectos
+        minijuegos_data = []
+        proyectos_data = []
+
+        # Obtener minijuegos
+        for minijuego in diseños.minijuegos:
+            minijuego_data = await obtener_minijuego_por_id(minijuego._id)
+            minijuegos_data.append(minijuego_data)
+
+        # Obtener proyectos
+        for proyecto in diseños.proyectos:
+            proyecto_data = await obtener_proyecto_por_id(proyecto._id)
+            proyectos_data.append(proyecto_data)
+
+        # Ahora puedes usar `minijuegos_data` y `proyectos_data` para construir el archivo .js
+
+        # Aquí es donde puedes crear el archivo .js, por ejemplo:
+        js_content = """
+        // Archivo JS generado dinámicamente
+        const minijuegos = %s;
+        const proyectos = %s;
+
+        console.log("Minijuegos:", minijuegos);
+        console.log("Proyectos:", proyectos);
+        """ % (minijuegos_data, proyectos_data)
+
+        # Guardar el archivo .js en el servidor temporalmente
+        js_file_path = "generated_file.js"
+        with open(js_file_path, "w") as js_file:
+            js_file.write(js_content)
+
+        # Retornar el archivo para la descarga
+        return JSONResponse(content={"file_path": js_file_path}, status_code=200)
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error al construir el archivo .js: {str(e)}")

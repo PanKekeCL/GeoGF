@@ -34,3 +34,7 @@ class Proyecto(BaseModel):
     minijuegos: Optional[List[Dict[str, Any]]] = []
     ultimaModificacion: str
     id_administrador: str
+
+class Diseños(BaseModel):
+    minijuegos: Optional[List] = []
+    proyectos: Optional[List] = []
