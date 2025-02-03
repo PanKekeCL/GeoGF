@@ -4,7 +4,7 @@ import EditIcon from "../assets/icons/editIcon.js";
 import BoxIcon from "../assets/icons/boxIcon.js";
 import CrossIcon from "../assets/icons/crossIcon.js";
 
-const ProjectList = ({ items = [], loading, onEditClick, onDeleteClick, onSelectClick }) => {
+const ProjectList = ({ items = [], loading, onEditClick, onDeleteClick, onSelectClick, selectedProject = null}) => {
 
     const calcularTiempoTranscurrido = (fechaModificacion) => {
         const fecha = new Date(fechaModificacion);
@@ -65,7 +65,7 @@ const ProjectList = ({ items = [], loading, onEditClick, onDeleteClick, onSelect
                                     </p>
                                 </div>
                                 <div className="w-[25%] text-xs text-gray-600 mt-3">
-                                    <p>Páginas: {item.paginas ? item.minijuegos.length : 0}</p>
+                                    <p>Minijuegos: {item.minijuegos ? item.minijuegos.length : 0}</p>
                                     <p>
                                         Última modificación:{" "}
                                         {calcularTiempoTranscurrido(item.ultimaModificacion)}
@@ -92,16 +92,16 @@ const ProjectList = ({ items = [], loading, onEditClick, onDeleteClick, onSelect
 
                                     {onSelectClick && (
                                         <button
-                                            className={`w-12 h-12 py-2 text-white rounded-md flex items-center justify-center ${item.seleccionado === true
-                                                ? "bg-[#F2182A] hover:bg-[#D91626]"
-                                                : "bg-[#18F25A] hover:bg-[#16D94E]"
+                                            className={`w-12 h-12 py-2 text-white rounded-md flex items-center justify-center ${selectedProject && item._id === selectedProject._id
+                                                ? "bg-blue-400 hover:bg-blue-600"
+                                                : "bg-[#FFFFFF] hover:bg-[#DDDDDD] border"
                                                 }`}
                                             onClick={() => onSelectClick(item._id)}
                                         >
-                                            {item.seleccionado === true ? (
-                                                <CrossIcon color="#FFFFFF" size={24} />
-                                            ) : (
+                                            {selectedProject && item._id === selectedProject._id ? (
                                                 <BoxIcon color="#FFFFFF" size={24} />
+                                            ) : (
+                                                <BoxIcon color="#BBBBBB" size={24} />
                                             )}
                                         </button>
                                     )}

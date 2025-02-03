@@ -7,7 +7,7 @@ import CheckIcon from "../../assets/icons/checkIcon.js";
 
 const MinigameSelector = ({ selectedMinigames = [], handleMinigamesChange }) => {
     const { user } = useAuth();
-    const { getMinijuegosByAdminID } = useApi();
+    const { getMinigamesByAdminID } = useApi();
     const [allMinigames, setAllMinigames] = useState([]);
     const [hasFetched, setHasFetched] = useState(false);
 
@@ -20,7 +20,7 @@ const MinigameSelector = ({ selectedMinigames = [], handleMinigamesChange }) => 
         if (!hasFetched) {
             const fetchMinijuegos = async () => {
                 try {
-                    const minijuegos = await getMinijuegosByAdminID(user._id);
+                    const minijuegos = await getMinigamesByAdminID(user._id);
                     setAllMinigames(minijuegos || []);
                 } catch (error) {
                     console.error("Error al obtener los minijuegos:", error);
@@ -29,7 +29,7 @@ const MinigameSelector = ({ selectedMinigames = [], handleMinigamesChange }) => 
             fetchMinijuegos();
             setHasFetched(true);
         }
-    }, [hasFetched, getMinijuegosByAdminID, user._id]);
+    }, [hasFetched, getMinigamesByAdminID, user._id]);
 
     const filteredMinigames = allMinigames
         .filter((minigame) =>
@@ -66,7 +66,9 @@ const MinigameSelector = ({ selectedMinigames = [], handleMinigamesChange }) => 
                 _id: minigame._id,
                 nombre: minigame.nombre,
                 descripcion: minigame.descripcion,
-                geometry: {},
+                tipo: minigame.tipo,
+                geometry: minigame.geometry || {},
+                paginas: minigame.paginas || [], // Copiar la lista de páginas del minijuego original
             };
             updatedMinigames = [...selectedMinigames, newMinigame];
         }
@@ -151,7 +153,7 @@ const MinigameSelector = ({ selectedMinigames = [], handleMinigamesChange }) => 
                                     : "bg-white border border-blue-500 text-blue-500"}`}
                             >
                                 {selectedMinigames.some((item) => item._id === minigame._id)
-                                    ? <CheckIcon/>
+                                    ? <CheckIcon />
                                     : <AddIcon />}
                             </button>
                         </div>

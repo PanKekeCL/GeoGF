@@ -1,36 +1,41 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../components/header';
-import DesignsToBuild from '../components/designsToBuild'; // Cambiado el nombre del componente
-import BuildableDesigns from '../components/buildableDesigns'; // Cambiado el nombre del componente
-import { useAuth } from '../context/useAuth'; // Importa el contexto de autenticación
-import { useApi } from '../hooks/useApi'; // Importa el hook de API
+import DesignsToBuild from '../components/designsToBuild';
+import BuildableDesigns from '../components/buildableDesigns';
+import { useAuth } from '../context/useAuth';
+import { useApi } from '../hooks/useApi';
 
 const Build = () => {
-  const [minijuegos, setMinijuegos] = useState([]);
-  const [proyectos, setProyectos] = useState([]);
-  const [selectedDesigns, setSelectedDesigns] = useState([]); // Elementos seleccionados para construir
+  // Data proveniente de la API
+  const [minigames, setMinigames] = useState([]);
+  const [projects, setProjects] = useState([]);
 
+  // Data seleccionada para construir
+  const [selectedMinigames, setSelectedMinigames] = useState([]); // Maneja varios minijuegos.
+  const [selectedProject, setSelectedProject] = useState(null); // Maneja un solo proyecto.
+
+  // COtras constantes y funciones
   const [hasFetched, setHasFetched] = useState(false);
-  const { getMinijuegosByAdminID, getProyectosByAdminID } = useApi(); // Obtén las funciones de la API
+  const { getMinigamesByAdminID, getProjectsByAdminID, buildProject } = useApi(); // Obtén las funciones de la API
   const { user } = useAuth();
-
   const userID = user._id
 
+  // Buscar la Data desde la API al cargar la pagina.
   useEffect(() => {
     if (userID && !hasFetched) {
       const fetchData = async () => {
         try {
-          const fetchedMinijuegos = await getMinijuegosByAdminID(userID); // Obtén minijuegos
-          const fetchedProyectos = await getProyectosByAdminID(userID); // Obtén proyectos
+          const fetchedMinigames = await getMinigamesByAdminID(userID); // Obtén minijuegos
+          const fetchedProjects = await getProjectsByAdminID(userID); // Obtén proyectos
 
-          if (fetchedMinijuegos) {
-            setMinijuegos(fetchedMinijuegos);
-            console.log('Minijuegos cargados:', fetchedMinijuegos);
+          if (fetchedMinigames) {
+            setMinigames(fetchedMinigames);
+            console.log('Minijuegos cargados:', fetchedMinigames);
           }
 
-          if (fetchedProyectos) {
-            setProyectos(fetchedProyectos);
-            console.log('Proyectos cargados:', fetchedProyectos);
+          if (fetchedProjects) {
+            setProjects(fetchedProjects);
+            console.log('Proyectos cargados:', fetchedProjects);
           }
         } catch (error) {
           console.error('Error al obtener los datos:', error);
@@ -41,77 +46,98 @@ const Build = () => {
 
       fetchData();
     }
-  }, [userID, hasFetched, getMinijuegosByAdminID, getProyectosByAdminID]); // La consulta solo se hace si 'ID' cambia y 'hasFetched' es false
+  }, [userID, hasFetched, getMinigamesByAdminID, getProjectsByAdminID]); // La consulta solo se hace si 'ID' cambia y 'hasFetched' es false
 
+  // Manejar la seleccion de un Minijuego
   const handleSelectMinigame = (id) => {
-    setMinijuegos((prevMinijuegos) =>
-      prevMinijuegos.map((minijuego) =>
-        minijuego._id === id
-          ? { ...minijuego, seleccionado: !minijuego.seleccionado } // Cambia el estado de seleccionado
-          : minijuego
-      )
-    );
-
-    setSelectedDesigns((prevSelected) => {
-      const selectedMinijuego = minijuegos.find((minijuego) => minijuego._id === id);
-      if (selectedMinijuego) {
-        // Si está seleccionado, lo eliminamos de los seleccionados; si no, lo agregamos
-        return selectedMinijuego.seleccionado
-          ? prevSelected.filter((item) => item._id !== id) // Elimina si ya está seleccionado
-          : [...prevSelected, selectedMinijuego]; // Agrega si no estaba seleccionado
+    setSelectedMinigames((prevSelectedMinigames) => {
+      const isAlreadySelected = prevSelectedMinigames.some((minigame) => minigame._id === id);
+      if (isAlreadySelected) {
+        return prevSelectedMinigames.filter((minigame) => minigame._id !== id);
+      } else {
+        const minigameToAdd = minigames.find((minigame) => minigame._id === id);
+        return minigameToAdd ? [...prevSelectedMinigames, minigameToAdd] : prevSelectedMinigames;
       }
-      return prevSelected;
     });
   };
 
+  // Manejar la seleccion de un Proyecto
   const handleSelectProject = (id) => {
-    setProyectos((prevProyectos) =>
-      prevProyectos.map((proyecto) =>
-        proyecto._id === id
-          ? { ...proyecto, seleccionado: !proyecto.seleccionado } // Cambia el estado de seleccionado
-          : proyecto
-      )
-    );
-
-    setSelectedDesigns((prevSelected) => {
-      const selectedProyecto = proyectos.find((proyecto) => proyecto._id === id);
-      if (selectedProyecto) {
-        // Si está seleccionado, lo eliminamos de los seleccionados; si no, lo agregamos
-        return selectedProyecto.seleccionado
-          ? prevSelected.filter((item) => item._id !== id) // Elimina si ya está seleccionado
-          : [...prevSelected, selectedProyecto]; // Agrega si no estaba seleccionado
+    setSelectedProject((prevSelectedProject) => {
+      if (prevSelectedProject && prevSelectedProject._id === id) {
+        return null;
       }
-      return prevSelected;
+      const projectToSelect = projects.find((project) => project._id === id);
+      return projectToSelect || null;
     });
+    console.log("Proyecto seleccionado: ", selectedProject);
   };
 
-  const handleBuild = async (selectedMinigames) => {
+  // Manejar la construccion
+  const handleBuild = async () => {
+    try {
+      console.log("Construyendo...");
+  
+      // Si no se ha seleccionado ningún proyecto
+      let OutputProject = {};
+  
+      if (selectedProject) {
+        // Usar el proyecto seleccionado
+        OutputProject = { ...selectedProject };
+        console.log('Proyecto seleccionado:', selectedProject);
+      } else {
+        // Crear un proyecto vacío si no se seleccionó uno
+        console.log('No se ha seleccionado un proyecto. Se creará un proyecto vacío.');
+        OutputProject = {
+          nombre: "", // Nombre vacío si no hay seleccionado
+          descripcion: "", // Descripción vacía si no hay seleccionado
+          minijuegos: selectedMinigames, // Usar los minijuegos seleccionados
+          ultimaModificacion: new Date().toISOString(), // Fecha de la última modificación
+          id_administrador: user._id, // ID del administrador
+        };
+      }
+  
+      // Verificar que haya al menos un minijuego
+      if (OutputProject.minijuegos.length === 0) {
+        console.error('Por favor selecciona al menos un minijuego.');
+        return;
+      }
+  
+      // Ejecutar el script de construcción en la API
+      buildProject(OutputProject);
+    } catch (err) {
+      console.error('Error al manejar el botón:', err);
+    }
   };
 
+  // Estructura de la pagina
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col">
-      {/* Header */}
+
       <div className="h-[12vh]">
         <Header />
       </div>
 
-      {/* Body */}
       <div className="h-[88vh] w-full py-1.5 flex gap-[5px] overflow-hidden">
-        {/* Componentes de Diseño a la izquierda */}
         <div className="w-1/3 h-full overflow-auto">
-          <DesignsToBuild selectedDesigns={selectedDesigns} onBuild={handleBuild} />
+          <DesignsToBuild
+            selectedMinigames={selectedMinigames}
+            selectedProject={selectedProject}
+            onBuild={handleBuild} />
         </div>
 
-        {/* Diseños construibles a la derecha */}
         <div className="w-2/3 h-full overflow-auto">
           <BuildableDesigns
-            minigames={minijuegos}
-            projects={proyectos}
+            minigames={minigames}
+            projects={projects}
+            selectedMinigames={selectedMinigames}
+            selectedProject={selectedProject}
             onSelectMinigame={handleSelectMinigame}
             onSelectProject={handleSelectProject}
           />
         </div>
       </div>
+
     </div>
   );
 };

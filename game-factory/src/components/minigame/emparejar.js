@@ -21,6 +21,7 @@ const Emparejar = ({ data, handlePageChange }) => {
         });
     }, [data]);
 
+
     const handleStatementChange = (e) => {
         updatePage({ enunciado: e.target.value });
     };
@@ -32,8 +33,11 @@ const Emparejar = ({ data, handlePageChange }) => {
     const handlePairChange = (e, index, side) => {
         const file = e.target.files ? e.target.files[0] : null;
         if (file) {
-            const imageUrl = URL.createObjectURL(file);
-            updatePair(index, side, imageUrl);
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                updatePair(index, side === "izquierda" ? "imagenIzquierda" : "imagenDerecha", reader.result);
+            };
+            reader.readAsDataURL(file);
         }
     };
 
@@ -66,7 +70,9 @@ const Emparejar = ({ data, handlePageChange }) => {
 
     const handleDeleteImage = (index, side) => {
         const updatedPairs = page.parejas.map((pair, i) =>
-            i === index ? { ...pair, [side]: "" } : pair
+            i === index
+                ? { ...pair, [side === "izquierda" ? "imagenIzquierda" : "imagenDerecha"]: "" }
+                : pair
         );
         updatePage({ parejas: updatedPairs });
     };
@@ -92,7 +98,7 @@ const Emparejar = ({ data, handlePageChange }) => {
                     <label className="text-gray-800">Concepto izquierdo:</label>
                     <select
                         value={page.tipoIzquierdo}
-                        onChange={(e) => handleSelectorChange('tipoIzquierdo', e.target.value)}
+                        onChange={(e) => handleSelectorChange("tipoIzquierdo", e.target.value)}
                         className="w-full p-2 border border-gray-300 rounded-md"
                     >
                         <option value="texto">Texto</option>
@@ -104,7 +110,7 @@ const Emparejar = ({ data, handlePageChange }) => {
                     <label className="text-gray-800">Concepto derecho:</label>
                     <select
                         value={page.tipoDerecho}
-                        onChange={(e) => handleSelectorChange('tipoDerecho', e.target.value)}
+                        onChange={(e) => handleSelectorChange("tipoDerecho", e.target.value)}
                         className="w-full p-2 border border-gray-300 rounded-md"
                     >
                         <option value="texto">Texto</option>
@@ -118,13 +124,9 @@ const Emparejar = ({ data, handlePageChange }) => {
             <div>
                 {page.parejas.map((pareja, index) => (
                     <div key={index} className="flex items-center space-x-4 mb-4 border rounded-md p-2">
-
-                        <div className="w-[5%] flex justify-center">
-                            <span className="text-gray-800 font-medium">{index + 1}</span>
-                        </div>
-
+                        {/* Concepto izquierdo */}
                         <div className="w-[45%]">
-                            {page.tipoIzquierdo === 'imagen' ? (
+                            {page.tipoIzquierdo === "imagen" ? (
                                 <div className="flex items-center space-x-4">
                                     <label
                                         htmlFor={`upload-izquierda-${index}`}
@@ -135,19 +137,19 @@ const Emparejar = ({ data, handlePageChange }) => {
                                     <input
                                         id={`upload-izquierda-${index}`}
                                         type="file"
-                                        onChange={(e) => handlePairChange(e, index, 'imagenIzquierda')}
+                                        onChange={(e) => handlePairChange(e, index, "izquierda")}
                                         className="hidden"
                                     />
                                     {pareja.imagenIzquierda ? (
-                                        <div className="flex items-center space-x-4">
+                                        <div className="flex items-center space-x-2">
                                             <img
                                                 src={pareja.imagenIzquierda}
                                                 alt={`Concepto Izquierda ${index + 1}`}
                                                 className="max-h-24 max-w-24 rounded-md"
                                             />
                                             <button
-                                                onClick={() => handleDeleteImage(index, 'imagenIzquierda')}
-                                                className="w-12 h-12 py-2 bg-[#F2182A] hover:bg-[#D91626] text-white rounded-md flex items-center justify-center"
+                                                onClick={() => handleDeleteImage(index, "izquierda")}
+                                                className="h-12 w-12 bg-red-500 hover:bg-red-600 text-white rounded-md flex items-center justify-center"
                                             >
                                                 <RemoveIcon color="#FFFFFF" size={30} />
                                             </button>
@@ -160,15 +162,17 @@ const Emparejar = ({ data, handlePageChange }) => {
                                 <input
                                     type="text"
                                     value={pareja.textoIzquierdo}
-                                    onChange={(e) => updatePair(index, 'textoIzquierdo', e.target.value)}
+                                    onChange={(e) => updatePair(index, "textoIzquierdo", e.target.value)}
                                     className="w-full p-2 border border-gray-300 rounded-md"
                                     placeholder="Escribe el texto"
                                 />
                             )}
                         </div>
 
+
+                        {/* Concepto derecho */}
                         <div className="w-[45%]">
-                            {page.tipoDerecho === 'imagen' ? (
+                            {page.tipoDerecho === "imagen" ? (
                                 <div className="flex items-center space-x-4">
                                     <label
                                         htmlFor={`upload-derecha-${index}`}
@@ -179,23 +183,15 @@ const Emparejar = ({ data, handlePageChange }) => {
                                     <input
                                         id={`upload-derecha-${index}`}
                                         type="file"
-                                        onChange={(e) => handlePairChange(e, index, 'imagenDerecha')}
+                                        onChange={(e) => handlePairChange(e, index, "derecha")}
                                         className="hidden"
                                     />
                                     {pareja.imagenDerecha ? (
-                                        <div className="flex items-center space-x-4">
-                                            <img
-                                                src={pareja.imagenDerecha}
-                                                alt={`Concepto Derecha ${index + 1}`}
-                                                className="max-h-24 max-w-24 rounded-md"
-                                            />
-                                            <button
-                                                onClick={() => handleDeleteImage(index, 'imagenDerecha')}
-                                                className="w-12 h-12 py-2 bg-[#F2182A] hover:bg-[#D91626] text-white rounded-md flex items-center justify-center"
-                                            >
-                                                <RemoveIcon color="#FFFFFF" size={30} />
-                                            </button>
-                                        </div>
+                                        <img
+                                            src={pareja.imagenDerecha}
+                                            alt={`Concepto Derecha ${index + 1}`}
+                                            className="max-h-24 max-w-24 rounded-md"
+                                        />
                                     ) : (
                                         <p className="text-gray-400">Sube una imagen</p>
                                     )}
@@ -204,34 +200,33 @@ const Emparejar = ({ data, handlePageChange }) => {
                                 <input
                                     type="text"
                                     value={pareja.textoDerecho}
-                                    onChange={(e) => updatePair(index, 'textoDerecho', e.target.value)}
+                                    onChange={(e) => updatePair(index, "textoDerecho", e.target.value)}
                                     className="w-full p-2 border border-gray-300 rounded-md"
                                     placeholder="Escribe el texto"
                                 />
                             )}
                         </div>
 
+                        {/* Botón eliminar pareja */}
                         <div className="w-[5%] flex justify-center">
                             <button
                                 onClick={() => handleDeletePair(index)}
-                                className="h-12 w-12 bg-[#F2182A] hover:bg-[#D91626] text-white rounded-md flex items-center justify-center"
+                                className="w-12 h-12 py-2 bg-[#F2182A] hover:bg-[#D91626] text-white rounded-md flex items-center justify-center"
                             >
                                 <RemoveIcon color="#FFFFFF" size={30} />
                             </button>
                         </div>
                     </div>
                 ))}
-
-                {page.parejas.length < 6 && (
-                    <button
-                        onClick={handleAddPair}
-                        className="h-12 w-12 bg-[#97F218] hover:bg-[#87d916] rounded-md flex items-center justify-center"
-                        title="Añadir pareja"
-                    >
-                        <AddIcon color="#FFFFFF" size={30} />
-                    </button>
-                )}
             </div>
+
+            <button
+                onClick={handleAddPair}
+                className="w-full py-3 bg-[#0D99FF] text-white rounded-md flex items-center justify-center"
+            >
+                <AddIcon color="#FFFFFF" size={30} />
+                Agregar pareja
+            </button>
         </div>
     );
 };

@@ -5,191 +5,210 @@ import CryptoJS from "crypto-js";
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:8000";
 
 const hashPassword = async (password) => {
-    const hashedPassword = CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex);  // Usar SHA-256 de crypto-js
-    console.log("Contraseña Hasheada:", hashedPassword);
-    return hashedPassword;
+    return CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex);
 };
 
 export const useApi = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    const registerAdmin = async (nuevoAdministrador) => {
+    const registerAdmin = async (newAdmin) => {
         setLoading(true);
         setError(null);
         try {
-            // Paso 1: Hashear la contraseña.
-            const hashedPassword = await hashPassword(nuevoAdministrador.contrasena);
-            const apiData = { ...nuevoAdministrador, contrasena: hashedPassword };
-            // Paso 2: Registrar al usuario con la API.
+            // Step 1: Hash the password.
+            const hashedPassword = await hashPassword(newAdmin.password);
+            const apiData = { ...newAdmin, password: hashedPassword };
+            // Step 2: Register the user with the API.
             const response = await axios.post(`${API_BASE_URL}/signup`, apiData);
             return response.data;
         } catch (err) {
-            setError(err.response ? err.response.data.detail : "Error de conexión");
-            console.error("HOOK - Error en signup:", err);
+            setError(err.response ? err.response.data.detail : "Connection error");
+            console.error("HOOK - Error in signup:", err);
             throw err;
         } finally {
             setLoading(false);
         }
     };
 
-    const loginAdmin = async (Administrador) => {
+    const loginAdmin = async (admin) => {
         setLoading(true);
         setError(null);
         try {
-            // Paso 1: Hashear la contraseña.
-            const hashedPassword = await hashPassword(Administrador.contrasena);
-            const apiData = { ...Administrador, contrasena: hashedPassword };
-            // Paso 2: Logear el usuario con la API.
+            // Step 1: Hash the password.
+            const hashedPassword = await hashPassword(admin.password);
+            const apiData = { ...admin, password: hashedPassword };
+            // Step 2: Log in the user with the API.
             const response = await axios.post(`${API_BASE_URL}/login`, apiData);
             return response.data;
         } catch (err) {
             setError(err.response ? err.response.data.detail : err.message);
-            console.error("HOOK - Error en login:", err);
+            console.error("HOOK - Error in login:", err);
             throw err;
         } finally {
             setLoading(false);
         }
     };
 
-    const getMinijuegosByAdminID = async (id_administrador) => {
+    const getMinigamesByAdminID = async (adminId) => {
         setLoading(true);
         setError(null);
         try {
-            const response = await axios.get(`${API_BASE_URL}/minijuegos/administrador/${id_administrador}`);
+            const response = await axios.get(`${API_BASE_URL}/minigames/admin_id/${adminId}`);
             return response.data;
         } catch (error) {
-            console.error("Error en getMinijuegosByAdminID:", error.message);
+            console.error("Error in getMinigamesByAdminID:", error.message);
             if (error.response && error.response.status === 404) {
-                console.warn("No se encontraron minijuegos para este administrador.");
-                return []; // Retornar una lista vacía si el recurso no existe
+                console.warn("No minigames found for this admin.");
+                return []; // Return an empty list if the resource does not exist
             }
-            return []
-            throw error; // Volver a lanzar el error para que pueda ser manejado por quien llame esta función
+            return [];
         } finally {
             setLoading(false);
         }
     };
 
-    // Función para crear o actualizar un minijuego
-    const saveMinijuego = async (minijuego) => {
+    const saveMinigame = async (minigame) => {
         setLoading(true);
         setError(null);
-
         try {
-            // Agregar datos del usuario y la fecha actual de modificación
-            console.log("Enviando a la API: ", minijuego);
+            console.log("Sending to API: ", minigame);
             let response;
-            // Si el minijuego no tiene ID, lo creamos; si tiene, lo actualizamos
-            if (!minijuego._id) {
-                // Crear un nuevo minijuego
-                response = await axios.post(`${API_BASE_URL}/minijuegos`, minijuego);
+            if (!minigame._id) {
+                response = await axios.post(`${API_BASE_URL}/minigames`, minigame);
             } else {
-                // Actualizar un minijuego existente
-                response = await axios.put(`${API_BASE_URL}/minijuegos/${minijuego._id}`, minijuego);
+                response = await axios.put(`${API_BASE_URL}/minigames/${minigame._id}`, minigame);
             }
-            console.log("Hook recibio: ", response.data)
+            console.log("Hook received: ", response.data);
             return response.data;
         } catch (err) {
-            setError(err.response ? err.response.data.detail : "Error de conexión");
-            console.error("Error al guardar el minijuego:", err);
+            setError(err.response ? err.response.data.detail : "Connection error");
+            console.error("Error saving the minigame:", err);
             throw err;
         } finally {
             setLoading(false);
         }
     };
 
-    const getMinijuegoByID = async (id) => {
+    const getMinigameByID = async (id) => {
         setLoading(true);
         setError(null);
-
         try {
-            const response = await axios.get(`${API_BASE_URL}/minijuego/${id}`);
-            console.log("Obtuve el siguiente minijuego: ", response.data)
+            const response = await axios.get(`${API_BASE_URL}/minigames/${id}`);
+            console.log("Retrieved minigame: ", response.data);
             return response.data;
         } catch (err) {
-            setError(err.response ? err.response.data.detail : "Error de conexión");
-            console.error("Error al buscar minijuego con ID:", err);
+            setError(err.response ? err.response.data.detail : "Connection error");
+            console.error("Error fetching minigame by ID:", err);
             throw err;
         } finally {
             setLoading(false);
         }
     };
 
-    const deleteMinijuegoByID = async (id) => {
+    const deleteMinigameByID = async (id) => {
         try {
-          const response = await axios.delete(`${API_BASE_URL}/minijuegos/${id}`);
-          return response.data;
+            const response = await axios.delete(`${API_BASE_URL}/minigames/${id}`);
+            return response.data;
         } catch (error) {
-          console.error("Error al eliminar el minijuego:", error);
-          throw new Error("No se pudo eliminar el minijuego.");
+            console.error("Error deleting the minigame:", error);
+            throw new Error("Failed to delete the minigame.");
         }
-      };
+    };
 
-      const getProyectosByAdminID = async (id_administrador) => {
+    const getProjectsByAdminID = async (adminId) => {
         setLoading(true);
         setError(null);
         try {
-            const response = await axios.get(`${API_BASE_URL}/proyectos/administrador/${id_administrador}`);
+            const response = await axios.get(`${API_BASE_URL}/projects/admin_id/${adminId}`);
             return response.data;
         } catch (error) {
-            console.error("Error en getProyectosByAdminID:", error.message);
+            console.error("Error in getProjectsByAdminID:", error.message);
             if (error.response && error.response.status === 404) {
-                console.warn("No se encontraron proyectos para este administrador.");
-                return []; // Retornar una lista vacía si el recurso no existe
+                console.warn("No projects found for this admin.");
+                return [];
             }
-            return []
-            throw error; // Volver a lanzar el error para que pueda ser manejado por quien llame esta función
+            return [];
         } finally {
             setLoading(false);
         }
     };
 
-    // Función para obtener un minijuego especifico
-    const getProyectoByID = async (id) => {
+    const getProjectByID = async (id) => {
         setLoading(true);
         setError(null);
-
         try {
-            const response = await axios.get(`${API_BASE_URL}/proyecto/${id}`);
-            console.log("Obtuve el siguiente proyecto: ", response.data)
+            const response = await axios.get(`${API_BASE_URL}/projects/${id}`);
+            console.log("Retrieved project: ", response.data);
             return response.data;
         } catch (err) {
-            setError(err.response ? err.response.data.detail : "Error de conexión");
-            console.error("Error al buscar proyecto con ID:", err);
+            setError(err.response ? err.response.data.detail : "Connection error");
+            console.error("Error fetching project by ID:", err);
             throw err;
         } finally {
             setLoading(false);
         }
     };
 
-    // Función para crear o actualizar un minijuego
-    const saveProyecto = async (proyecto) => {
+    const saveProject = async (project) => {
         setLoading(true);
         setError(null);
-
         try {
-            // Agregar datos del usuario y la fecha actual de modificación
-            console.log("Enviando a la API: ", proyecto);
+            console.log("Sending to API: ", project);
             let response;
-            // Si el minijuego no tiene ID, lo creamos; si tiene, lo actualizamos
-            if (!proyecto._id) {
-                // Crear un nuevo minijuego
-                response = await axios.post(`${API_BASE_URL}/proyectos`, proyecto);
+            if (!project._id) {
+                response = await axios.post(`${API_BASE_URL}/projects`, project);
             } else {
-                // Actualizar un minijuego existente
-                response = await axios.put(`${API_BASE_URL}/proyectos/${proyecto._id}`, proyecto);
+                response = await axios.put(`${API_BASE_URL}/projects/${project._id}`, project);
             }
-            console.log("Hook recibido: ", response.data)
+            console.log("Hook received: ", response.data);
             return response.data;
         } catch (err) {
-            setError(err.response ? err.response.data.detail : "Error de conexión");
-            console.error("Error al guardar el proyecto:", err);
+            setError(err.response ? err.response.data.detail : "Connection error");
+            console.error("Error saving the project:", err);
             throw err;
         } finally {
             setLoading(false);
         }
     };
 
-    return { registerAdmin, loginAdmin, getMinijuegosByAdminID, saveMinijuego, getMinijuegoByID, deleteMinijuegoByID, getProyectosByAdminID, getProyectoByID, saveProyecto, loading, error };
+    const deleteProjectByID = async (id) => {
+        try {
+            const response = await axios.delete(`${API_BASE_URL}/projects/${id}`);
+            return response.data;
+        } catch (error) {
+            console.error("Error deleting the project:", error);
+            throw new Error("Failed to delete the project.");
+        }
+    };
+
+    const buildProject = async (project) => {
+        setLoading(true); // Iniciar la carga
+        setError(null); // Limpiar el error previo
+        try {
+            const response = await axios.post(`${API_BASE_URL}/build`, project);
+            return response.data;
+        } catch (error) {
+            console.error("Error building the project:", error);
+            setError("Failed to build the project."); // Establecer el mensaje de error
+        } finally {
+            setLoading(false); // Detener el estado de carga
+        }
+    };
+
+    return {
+        registerAdmin,
+        loginAdmin,
+        getMinigamesByAdminID,
+        saveMinigame,
+        getMinigameByID,
+        deleteMinigameByID,
+        getProjectsByAdminID,
+        getProjectByID,
+        saveProject,
+        deleteProjectByID,
+        buildProject,
+        loading,
+        error,
+    };
 };

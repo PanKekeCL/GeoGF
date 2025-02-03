@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
+import React, { useState } from "react";
 import MinigameSelector from "./minigameSelector"; // Importa el componente para la lista de selección
 import MinigamePlacer from "./minigamePlacer"; // Importa el componente para la lista de ubicación
 

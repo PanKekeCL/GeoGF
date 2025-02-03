@@ -3,55 +3,42 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/useAuth.js";
 import { useApi } from "../hooks/useApi";
 import SearchIcon from "../assets/icons/searchIcon";
-import DeleteIcon from "../assets/icons/deleteIcon.js";
-import EditIcon from "../assets/icons/editIcon.js";
 import MinigameList from "./minigameList.js";
 import ProjectList from "./projectList.js";
 
 const YourDesigns = () => {
-  const [minijuegos, setMinijuegos] = useState([]);  // Lista vacía por defecto
-  const [proyectos, setProyectos] = useState([]);    // Lista vacía por defecto
+  const [minijuegos, setMinijuegos] = useState([]);
+  const [proyectos, setProyectos] = useState([]);
   const [filteredMinijuegos, setFilteredMinijuegos] = useState([]);
   const [filteredProyectos, setFilteredProyectos] = useState([]);
   const [activeTab, setActiveTab] = useState("minijuegos");
   const [searchTerm, setSearchTerm] = useState("");
-  const [sortOrder, setSortOrder] = useState("asc");
   const [sortBy, setSortBy] = useState("nombre");
   const [hasFetched, setHasFetched] = useState(false);
 
   const navigate = useNavigate();
   const { user } = useAuth();
-  const { getMinijuegosByAdminID, getProyectosByAdminID, deleteMinijuegoByID, deleteProyectoByID } = useApi();
+  const { getMinigamesByAdminID, getProjectsByAdminID, deleteMinigameByID, deleteProjectByID } = useApi();
 
   useEffect(() => {
     if (!hasFetched) {
       const fetchMinijuegos = async () => {
         try {
-          const minijuegos = await getMinijuegosByAdminID(user._id);
-          if (minijuegos && minijuegos.length > 0) {
-            setMinijuegos(minijuegos);
-          } else {
-            console.error('Minijuegos no encontrados');
-            setMinijuegos([]); // Asegurar que minijuegos sea una lista vacía
-          }
+          const minijuegos = await getMinigamesByAdminID(user._id);
+          setMinijuegos(minijuegos || []);
         } catch (error) {
           console.error('Error al obtener los minijuegos:', error);
-          setMinijuegos([]); // Asegurar que minijuegos sea una lista vacía
+          setMinijuegos([]);
         }
       };
 
       const fetchProyectos = async () => {
         try {
-          const proyectos = await getProyectosByAdminID(user._id);
-          if (proyectos && proyectos.length > 0) {
-            setProyectos(proyectos);
-          } else {
-            console.error('Proyectos no encontrados');
-            setProyectos([]); // Asegurar que proyectos sea una lista vacía
-          }
+          const proyectos = await getProjectsByAdminID(user._id);
+          setProyectos(proyectos || []);
         } catch (error) {
           console.error('Error al obtener los proyectos:', error);
-          setProyectos([]); // Asegurar que proyectos sea una lista vacía
+          setProyectos([]);
         }
       };
 
@@ -59,11 +46,11 @@ const YourDesigns = () => {
       fetchProyectos();
       setHasFetched(true);
     }
-  }, [hasFetched, getMinijuegosByAdminID, getProyectosByAdminID, user._id]);
+  }, [hasFetched, getMinigamesByAdminID, getProjectsByAdminID, user._id]);
 
   useEffect(() => {
     const normalizedSearchTerm = removeAccents(searchTerm.toLowerCase());
-  
+
     const filterAndSort = (items) => {
       return items
         .filter((item) => {
@@ -72,27 +59,17 @@ const YourDesigns = () => {
         })
         .sort((a, b) => {
           if (sortBy === "nombre") {
-            const nameA = a.nombre?.toLowerCase() || "";
-            const nameB = b.nombre?.toLowerCase() || "";
-            return sortOrder === "asc"
-              ? nameA.localeCompare(nameB)
-              : nameB.localeCompare(nameA);
+            return a.nombre.localeCompare(b.nombre);
           } else if (sortBy === "fechaModificacion") {
-            const fechaA = new Date(a.ultimaModificacion || 0);
-            const fechaB = new Date(b.ultimaModificacion || 0);
-            return sortOrder === "asc" ? fechaB - fechaA : fechaA - fechaB;
+            return new Date(b.ultimaModificacion) - new Date(a.ultimaModificacion);
           }
           return 0;
         });
     };
-  
-    const filteredMinijuegos = filterAndSort(minijuegos || []);
-    const filteredProyectos = filterAndSort(proyectos || []);
-  
-    setFilteredMinijuegos(filteredMinijuegos);
-    setFilteredProyectos(filteredProyectos);
-  }, [minijuegos, proyectos, searchTerm, sortBy, sortOrder]);
-  
+
+    setFilteredMinijuegos(filterAndSort(minijuegos));
+    setFilteredProyectos(filterAndSort(proyectos));
+  }, [minijuegos, proyectos, searchTerm, sortBy]);
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
@@ -102,14 +79,26 @@ const YourDesigns = () => {
     navigate(`/${tipo_diseño}?id=${id}`);
   };
 
-  const handleDeleteClick = async (id_minijuego) => {
+  const handleDeleteMinigame = async (id_minijuego) => {
     if (window.confirm("¿Estás seguro de que deseas eliminar este minijuego?")) {
       try {
-        await deleteMinijuegoByID(id_minijuego); // Llama al hook
-        window.location.reload(); // Recarga la página
+        await deleteMinigameByID(id_minijuego);
+        window.location.reload();
       } catch (error) {
         console.error("Error eliminando minijuego:", error);
         alert("Hubo un error al eliminar el minijuego. Inténtalo de nuevo.");
+      }
+    }
+  };
+
+  const handleDeleteProject = async (id_proyecto) => {
+    if (window.confirm("¿Estás seguro de que deseas eliminar este proyecto?")) {
+      try {
+        await deleteProjectByID(id_proyecto);
+        window.location.reload();
+      } catch (error) {
+        console.error("Error eliminando proyecto:", error);
+        alert("Hubo un error al eliminar el proyecto. Inténtalo de nuevo.");
       }
     }
   };
@@ -120,7 +109,6 @@ const YourDesigns = () => {
 
   return (
     <div className="h-full space-y-6 bg-white">
-      {/* Pestañas */}
       <div className="flex border-b w-full h-[10%]">
         <button
           onClick={() => handleTabClick('minijuegos')}
@@ -142,7 +130,6 @@ const YourDesigns = () => {
         </button>
       </div>
 
-      {/* Buscador y Filtros */}
       <div className="flex px-5 space-x-4 items-center" style={{ height: '5%' }}>
         <div className="flex items-center bg-white border border-gray-200 rounded-full p-3 flex-grow gap-2">
           <SearchIcon color="#9ca3af" size={20} />
@@ -163,32 +150,22 @@ const YourDesigns = () => {
             <option value="nombre">Alfabéticamente</option>
             <option value="fechaModificacion">Recientemente</option>
           </select>
-          <select
-            className="p-2 border border-gray-300 rounded-md"
-            value={sortOrder}
-            onChange={(e) => setSortOrder(e.target.value)}
-          >
-            <option value="asc">ASC</option>
-            <option value="desc">DESC</option>
-          </select>
         </div>
       </div>
 
-      {/* Lista de Minijuegos */}
       {activeTab === "minijuegos" && (
         <MinigameList
           items={Array.isArray(filteredMinijuegos) ? filteredMinijuegos : []}
           onEditClick={handleEditClick}
-          onDeleteClick={handleDeleteClick}
+          onDeleteClick={handleDeleteMinigame}
         />
       )}
 
-      {/* Lista de Proyectos */}
       {activeTab === "proyectos" && (
         <ProjectList
           items={Array.isArray(filteredProyectos) ? filteredProyectos : []}
           onEditClick={handleEditClick}
-          onDeleteClick={handleDeleteClick}
+          onDeleteClick={handleDeleteProject}
         />
       )}
     </div>

@@ -7,6 +7,7 @@ from bson import ObjectId
 import logging
 import os
 from typing import List
+import tempfile
 
 def compare_hashed_passwords(password1, password2):
     return password1 == password2; # bcrypt.checkpw(password1.encode('utf-8'), password2.encode('utf-8'))
@@ -16,32 +17,19 @@ def serialize_mongo_document(document):
         document["_id"] = str(document["_id"])
     return document
 
-# Variables de Entorno
+# Enviroment Variables
 DATABASE_HOST = os.getenv("DATABASE_HOST")
 DATABASE_NAME = os.getenv("DATABASE_NAME")
-"""
-SECRET_KEY = os.getenv("SECRET_KEY")
-ALGORITHM = os.getenv("ALGORITHM")
-EMAIL = os.getenv("EMAIL")
-EMAIL_PASS = os.getenv("EMAIL_PASS")
-"""
-# Conexion MongoDB
+
+# MongoDB Connection
 client = AsyncIOMotorClient(DATABASE_HOST)
 db = client[DATABASE_NAME]
 
-administradores_collection = db.get_collection("administradores")
-minijuegos_collection = db.get_collection("minijuegos")
-proyectos_collection = db.get_collection("proyectos")
-"""
-users_collection = db.get_collection('users')
-logs_collection = db.get_collection('logs')
-infocards_collection = db.get_collection('infoCards')
-treecards_collection = db.get_collection('treeCards')
-trees_collection = db.get_collection('trees')
-beacons_collection = db.get_collection('beacons')
-"""
+admins_collection = db.get_collection("administradores")
+minigames_collection = db.get_collection("minijuegos")
+projects_collection = db.get_collection("proyectos")
 
-# Inicialización de sistema de Loggin
+# Logging System Initialization
 logger = logging.getLogger("API_GEOGF")
 logger.setLevel(logging.INFO)
 file_handler = logging.FileHandler("./app/logs/log")
@@ -49,26 +37,22 @@ formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(messag
 file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
 
-# Inicialización de la aplicación FastAPI
+# FastAPI Application Initialization
 router = APIRouter()
 
-# Ruta para registrar un nuevo administrador
+# Autentication Routes
 @router.post("/signup")
-async def signup_administrador(administrador: schemas.AdministradorSignup, request: Request):
-
-    try: # Verificar si el correo ya está registrado
-        existing_admin = await administradores_collection.find_one({"correo": administrador.correo})
-        # Si ya existe, retorna ERROR 400
+async def signup_admin(admin: schemas.AdministradorSignup, request: Request):
+    try:
+        existing_admin = await admins_collection.find_one({"correo": admin.correo})
         if existing_admin: 
             raise HTTPException( 
                 status_code=status.HTTP_400_BAD_REQUEST,
-                detail="El correo ya está registrado."
+                detail="That Email is already registered."
             )
-        # Si no existe, inserta el nuevo Admin en la DB
-        result = await administradores_collection.insert_one(administrador.dict())
-        logger.info(f"/signup, FROM: {request.client.host}, DETAIL: Nuevo administrador registrado {administrador.correo}")
-        # Retorna todos los datos sin la contraseña
-        created_admin = administrador.dict(exclude={"contrasena"})
+        result = await admins_collection.insert_one(admin.dict())
+        logger.info(f"/signup, FROM: {request.client.host}, DETAIL: Nuevo administrador registrado {admin.correo}")
+        created_admin = admin.dict(exclude={"contrasena"})
         created_admin["_id"] = str(result.inserted_id)
         return created_admin
     
@@ -84,17 +68,17 @@ async def signup_administrador(administrador: schemas.AdministradorSignup, reque
         )
 
 @router.post("/login")
-async def login_administrador(administrador: schemas.AdministradorLogin, request: Request):
+async def login_admin(admin: schemas.AdministradorLogin, request: Request):
     try: # Buscar correo en la base de datos
-        found_admin = await administradores_collection.find_one({"correo": administrador.correo})
+        found_admin = await admins_collection.find_one({"correo": admin.correo})
         # Si no existe, retorna ERROR 404
         if not found_admin:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail="Correo no encontrado."
             )
-        print("Voy a comparar", found_admin['contrasena'], " con ", administrador.contrasena)
-        if (not compare_hashed_passwords(found_admin['contrasena'], administrador.contrasena)):
+        print("Voy a comparar", found_admin['contrasena'], " con ", admin.contrasena)
+        if (not compare_hashed_passwords(found_admin['contrasena'], admin.contrasena)):
             # Si el usuario no existe o la contraseña es incorrecta, devolver 404
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
@@ -102,7 +86,7 @@ async def login_administrador(administrador: schemas.AdministradorLogin, request
             )
         found_admin = {key: (str(value) if isinstance(value, ObjectId) else value) for key, value in found_admin.items()}
         # Si existe, se obtienen los datos.
-        logger.info(f"../login, FROM: {request.client.host}, DETAIL: Successful login for {administrador.correo}")
+        logger.info(f"../login, FROM: {request.client.host}, DETAIL: Successful login for {admin.correo}")
         return {
             "mensaje": "Administrador logeado exitosamente",
             "data": {key: value for key, value in found_admin.items() if key != "contrasena"}
@@ -112,229 +96,145 @@ async def login_administrador(administrador: schemas.AdministradorLogin, request
         logger.error(f"../login, FROM: {request.client.host}, STATUS: {e.status_code}, DETAL: {e.detail}")
         raise
 
-# Crear un nuevo minijuego.
-@router.post("/minijuegos", response_model=dict)
-async def crear_minijuego(minijuego: schemas.Minijuego, request: Request):
-    """
-    Ruta para insertar un nuevo minijuego en la base de datos.
-    """
+# Minigame Routes
+@router.post("/minigames", response_model=dict)
+async def create_minigame(minigame: schemas.Minijuego, request: Request):
     try:
-        minijuego_dict = minijuego.dict()
-        minijuego_dict["id_administrador"] = ObjectId(minijuego.id_administrador)
+        minigame_dict = minigame.dict()
+        minigame_dict["id_administrador"] = ObjectId(minigame.id_administrador)
 
-        # Insertar el minijuego en la colección
-        result = await minijuegos_collection.insert_one(minijuego_dict)
+        # Insertar el minigame en la colección
+        result = await minigames_collection.insert_one(minigame_dict)
         
         # Loggear la inserción exitosa
-        logger.info(f"/minijuegos, FROM: {request.client.host}, DETAIL: Nuevo minijuego creado con ID {result.inserted_id}")
+        logger.info(f"/minigames, FROM: {request.client.host}, DETAIL: Nuevo minigame creado con ID {result.inserted_id}")
 
         # Obtener id insertada
-        minijuego_ingresado = minijuego.dict()
-        minijuego_ingresado["_id"] = str(result.inserted_id)
+        minigame_ingresado = minigame.dict()
+        minigame_ingresado["_id"] = str(result.inserted_id)
 
-        return minijuego_ingresado
+        return minigame_ingresado
 
     except HTTPException as e:
-        logger.error(f"/minijuegos, FROM: {request.client.host}, ERROR: {e.detail}")
+        logger.error(f"/minigames, FROM: {request.client.host}, ERROR: {e.detail}")
         raise e
 
     except Exception as e:
-        logger.error(f"/minijuegos, FROM: {request.client.host}, ERROR: {str(e)}")
+        logger.error(f"/minigames, FROM: {request.client.host}, ERROR: {str(e)}")
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Error interno del servidor al crear el minijuego."
+            detail="Error interno del servidor al crear el minigame."
         )
 
-# Actualiza un minijuego con la misma ID.
-@router.put("/minijuegos/{minijuego_id}", response_model=dict)
-async def actualizar_minijuego(minijuego_id: str, minijuego: schemas.Minijuego, request: Request):
-    """
-    Ruta para actualizar un minijuego existente en la base de datos.
-    """
+@router.put("/minigames/{minigame_id}", response_model=dict)
+async def update_minigame(minigame_id: str, minigame: schemas.Minijuego, request: Request):
     try:
         # Convierte el objeto de entrada a un diccionario
-        minijuego_dict = minijuego.dict()
-        minijuego_dict["id_administrador"] = ObjectId(minijuego.id_administrador)
-        minijuego_dict["_id"] = ObjectId(minijuego_id)
+        minigame_dict = minigame.dict()
+        minigame_dict["id_administrador"] = ObjectId(minigame.id_administrador)
+        minigame_dict["_id"] = ObjectId(minigame_id)
 
-        print(f"Minijuego a actualizar: {minijuego_dict}")
-        # Actualizar el minijuego en la base de datos
-        result = await minijuegos_collection.update_one(
-            {"_id": ObjectId(minijuego_id)},
-            {"$set": minijuego_dict}
+        print(f"minigame a actualizar: {minigame_dict}")
+        # Actualizar el minigame en la base de datos
+        result = await minigames_collection.update_one(
+            {"_id": ObjectId(minigame_id)},
+            {"$set": minigame_dict}
         )
         
-        # Verificar si el minijuego fue encontrado y actualizado
+        # Verificar si el minigame fue encontrado y actualizado
         if result.modified_count == 0:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
-                detail=f"Minijuego con ID {minijuego_id} no encontrado."
+                detail=f"minigame con ID {minigame_id} no encontrado."
             )
         
         # Loggear la actualización exitosa
-        logger.info(f"/minijuegos/{minijuego_id}, FROM: {request.client.host}, DETAIL: Minijuego actualizado con ID {minijuego_id}")
+        logger.info(f"/minigames/{minigame_id}, FROM: {request.client.host}, DETAIL: minigame actualizado con ID {minigame_id}")
 
         # Obtener id insertada
-        minijuego_actualizado = minijuego.dict()
-        minijuego_actualizado["_id"] = minijuego_id
+        minigame_actualizado = minigame.dict()
+        minigame_actualizado["_id"] = minigame_id
 
-        return minijuego_actualizado
+        return minigame_actualizado
     
     except Exception as e:
-        logger.error(f"/minijuegos/{minijuego_id}, FROM: {request.client.host}, ERROR: {str(e)}")
+        logger.error(f"/minigames/{minigame_id}, FROM: {request.client.host}, ERROR: {str(e)}")
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Error interno del servidor al actualizar el minijuego."
+            detail="Error interno del servidor al actualizar el minigame."
         )
 
-# Buscar la data de un minijuego segun su _id
-@router.get("/minijuego/{id_minijuego}")
-async def get_minijuego_by_id(id_minijuego: str):
-    print("Me llego: ", id_minijuego)
+# Buscar la data de un minigame segun su _id
+@router.get("/minigames/{minigame_id}")
+async def read_minigame_by_id(minigame_id: str):
     try:
-        # Convertir el ID a ObjectId
-        object_id = ObjectId(id_minijuego)
-        # Buscar el minijuego en la base de datos
-        found_minigame = await minijuegos_collection.find_one({"_id": object_id})
-
+        object_id = ObjectId(minigame_id)
+        found_minigame = await minigames_collection.find_one({"_id": object_id})
         if not found_minigame:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
-                detail="Minijuego no encontrado"
+                detail="Minigame not found"
             )
-        
-        # Convertir los ObjectId a string antes de devolverlo
         minigame = {key: (str(value) if isinstance(value, ObjectId) else value) for key, value in found_minigame.items()}
-        
         return minigame
-        """{
-            "mensaje": "Minijuego encontrado",
-            "data": minigame
-        }"""
-
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Error al obtener el minijuego"
+            detail="Error when searching minigame"
         )
 
-
-@router.get("/minijuegos/administrador/{id_administrador}", response_model=List[dict])
-async def obtener_minijuegos_por_admin(id_administrador: str, request: Request):
-    """
-    Ruta para obtener todos los minijuegos creados por un administrador específico.
-    
-    Parámetros:
-    - id_administrador: ID del administrador cuyos minijuegos se desean buscar.
-    """
+@router.get("/minigames/admin_id/{admin_id}", response_model=List[dict])
+async def read_minigames_by_admin_id(admin_id: str, request: Request):
     try:
-        # Convertir el ID a ObjectId
-        object_id = ObjectId(id_administrador)
-
-        # Realizar la búsqueda en la base de datos
-        minijuegos = await minijuegos_collection.find({"id_administrador": object_id}).to_list(length=None)
-
-        if not minijuegos:
-            logger.info(f"/minijuegos/administrador/{id_administrador}, FROM: {request.client.host}, DETAIL: No se encontraron minijuegos para este administrador.")
+        object_id = ObjectId(admin_id)
+        found_minigames = await minigames_collection.find({"id_administrador": object_id}).to_list(length=None)
+        if not found_minigames:
+            logger.info(f"/minigames/admin_id/{admin_id}, FROM: {request.client.host}, DETAIL: Minigames not found.")
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
-                detail="No se encontraron minijuegos para este administrador."
+                detail="Minigames not found."
             )
-
-        # Cambiar los atributos '_id' y 'id_administrador' a str
-        for minijuego in minijuegos:
-            minijuego["_id"] = str(minijuego["_id"])  # Convertir ObjectId a str
-            minijuego["id_administrador"] = str(minijuego["id_administrador"])  # Convertir ObjectId a str
-
-        # Loggear el éxito
-        logger.info(f"/minijuegos/administrador/{id_administrador}, FROM: {request.client.host}, DETAIL: {len(minijuegos)} minijuego(s) encontrado(s).")
-
-        return minijuegos
-
+        for minigame in found_minigames:
+            minigame["_id"] = str(minigame["_id"])
+            minigame["id_administrador"] = str(minigame["id_administrador"])
+        logger.info(f"/minigames/admin_id/{admin_id}, FROM: {request.client.host}, DETAIL: Found {len(found_minigames)} minigames.")
+        return found_minigames
     except Exception as e:
-        logger.error(f"/minijuegos/administrador/{id_administrador}, FROM: {request.client.host}, ERROR: {str(e)}")
+        logger.error(f"/minigames/administrador/{admin_id}, FROM: {request.client.host}, ERROR: {str(e)}")
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Error interno del servidor al buscar los minijuegos."
+            detail="Internal server error."
         )
 
-# Ruta para eliminar un minijuego por ID
-@router.delete("/minijuegos/{id}", status_code=200)
-async def delete_minijuego(id: str):
+# Delete
+@router.delete("/minigames/{id}", status_code=200)
+async def delete_minigame(id: str):
     try:
-        result = await minijuegos_collection.delete_one({"_id": ObjectId(id)})
+        object_id = ObjectId(id)
+        result = await minigames_collection.delete_one({"_id": object_id})
         if result.deleted_count == 0:
-            raise HTTPException(status_code=404, detail="Minijuego no encontrado")
-        return {"message": "Minijuego eliminado con éxito"}
+            raise HTTPException(status_code=404, detail="Minigame not found.")
+        return {"message": "minigame eliminado con éxito"}
     except Exception as e:
-        print(f"Error al eliminar minijuego: {e}")
-        raise HTTPException(status_code=500, detail="Error al eliminar el minijuego")
-    
-@router.get("/proyectos/administrador/{id_administrador}", response_model=List[dict])
-async def obtener_proyectos_por_admin(id_administrador: str, request: Request):
-    """
-    Ruta para obtener todos los proyectos creados por un administrador específico.
-    
-    Parámetros:
-    - id_administrador: ID del administrador cuyos proyectos se desean buscar.
-    """
+        print(f"Error al eliminar minigame: {e}")
+        raise HTTPException(status_code=500, detail="Error al eliminar el minigame")
+
+# PROJECT ROUTES
+
+# Create
+@router.post("/projects", response_model=dict)
+async def create_project(project: schemas.Proyecto, request: Request):
     try:
-        # Convertir el ID a ObjectId
-        object_id = ObjectId(id_administrador)
-
-        # Realizar la búsqueda en la base de datos
-        proyectos = await proyectos_collection.find({"id_administrador": object_id}).to_list(length=None)
-
-        if not proyectos:
-            logger.info(f"/proyectos/administrador/{id_administrador}, FROM: {request.client.host}, DETAIL: No se encontraron proyectos para este administrador.")
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail="No se encontraron proyectos para este administrador."
-            )
-
-        # Cambiar los atributos '_id' y 'id_administrador' a str
-        for proyecto in proyectos:
-            proyecto["_id"] = str(proyecto["_id"])  # Convertir ObjectId a str
-            proyecto["id_administrador"] = str(proyecto["id_administrador"])  # Convertir ObjectId a str
-
-        # Loggear el éxito
-        logger.info(f"/proyectos/administrador/{id_administrador}, FROM: {request.client.host}, DETAIL: {len(proyectos)} minijuego(s) encontrado(s).")
-
-        return proyectos
-
-    except Exception as e:
-        logger.error(f"/proyectos/administrador/{id_administrador}, FROM: {request.client.host}, ERROR: {str(e)}")
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Error interno del servidor al buscar los proyectos."
-        )
-
-# Crear un nuevo minijuego.
-@router.post("/proyectos", response_model=dict)
-async def crear_proyecto(proyecto: schemas.Proyecto, request: Request):
-    """
-    Ruta para insertar un nuevo proyecto en la base de datos.
-    """
-    try:
-        proyecto_dict = proyecto.dict()
-        proyecto_dict["id_administrador"] = ObjectId(proyecto.id_administrador)
-
-        # Insertar el proyecto en la colección
-        result = await proyectos_collection.insert_one(proyecto_dict)
-        
-        # Loggear la inserción exitosa
-        logger.info(f"/proyectos, FROM: {request.client.host}, DETAIL: Nuevo proyecto creado con ID {result.inserted_id}")
-
-        # Obtener id insertada
-        proyecto_ingresado = proyecto.dict()
-        proyecto_ingresado["_id"] = str(result.inserted_id)
-
-        return proyecto_ingresado
-
+        project_dict = project.dict()
+        project_dict["id_administrador"] = ObjectId(project.id_administrador)
+        result = await projects_collection.insert_one(project_dict)
+        logger.info(f"/projects, FROM: {request.client.host}, DETAIL: Project created with ID: {result.inserted_id} .")
+        project_ingresado = project.dict()
+        project_ingresado["_id"] = str(result.inserted_id)
+        return project_ingresado
     except HTTPException as e:
         logger.error(f"/proyectos, FROM: {request.client.host}, ERROR: {e.detail}")
         raise e
-
     except Exception as e:
         logger.error(f"/proyectos, FROM: {request.client.host}, ERROR: {str(e)}")
         raise HTTPException(
@@ -342,133 +242,139 @@ async def crear_proyecto(proyecto: schemas.Proyecto, request: Request):
             detail="Error interno del servidor al crear el proyecto."
         )
 
-# Actualiza un proyecto con la misma ID.
-@router.put("/proyectos/{proyecto_id}", response_model=dict)
-async def actualizar_proyecto(proyecto_id: str, proyecto: schemas.Proyecto, request: Request):
-    """
-    Ruta para actualizar un proyecto existente en la base de datos.
-    """
+# Read
+@router.get("/projects/{id}")
+async def read_project_by_id(id: str):
     try:
-        # Convierte el objeto de entrada a un diccionario
-        proyecto_dict = proyecto.dict()
-        proyecto_dict["id_administrador"] = ObjectId(proyecto.id_administrador)
-        proyecto_dict["_id"] = ObjectId(proyecto_id)
-
-        print(f"proyecto a actualizar: {proyecto_dict}")
-        # Actualizar el proyecto en la base de datos
-        result = await proyectos_collection.update_one(
-            {"_id": ObjectId(proyecto_id)},
-            {"$set": proyecto_dict}
-        )
-        
-        # Verificar si el proyecto fue encontrado y actualizado
-        if result.modified_count == 0:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail=f"proyecto con ID {proyecto_id} no encontrado."
-            )
-        
-        # Loggear la actualización exitosa
-        logger.info(f"/proyectos/{proyecto_id}, FROM: {request.client.host}, DETAIL: proyecto actualizado con ID {proyecto_id}")
-
-        # Obtener id insertada
-        proyecto_actualizado = proyecto.dict()
-        proyecto_actualizado["_id"] = proyecto_id
-
-        return proyecto_actualizado
-    
-    except Exception as e:
-        logger.error(f"/proyectos/{proyecto_id}, FROM: {request.client.host}, ERROR: {str(e)}")
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Error interno del servidor al actualizar el proyecto."
-        )
-
-# Buscar la data de un proyecto segun su _id
-@router.get("/proyecto/{id_proyecto}")
-async def get_proyecto_by_id(id_proyecto: str):
-    try:
-        # Convertir el ID a ObjectId
-        object_id = ObjectId(id_proyecto)
-        # Buscar el proyecto en la base de datos
-        found_project = await proyectos_collection.find_one({"_id": object_id})
-
+        object_id = ObjectId(id)
+        found_project = await projects_collection.find_one({"_id": object_id})
         if not found_project:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
-                detail="Proyecto no encontrado"
+                detail="Project not found."
             )
-        
-        # Convertir los ObjectId a string antes de devolverlo
         project = {key: (str(value) if isinstance(value, ObjectId) else value) for key, value in found_project.items()}
-        
         return project
-
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Error al obtener el proyecto"
+            detail="Internal server error."
         )
 
-# Función para obtener minijuego desde la base de datos
-async def obtener_minijuego_por_id(minijuego_id: str):
-    # Usando ObjectId para MongoDB, si usas otra base de datos, ajusta la consulta.
+@router.get("/projects/admin_id/{admin_id}", response_model=List[dict])
+async def read_projects_by_admin_id(admin_id: str, request: Request):
     try:
-        minijuego = db.minijuegos.find_one({"_id": ObjectId(minijuego_id)})
-        if not minijuego:
-            raise HTTPException(status_code=404, detail=f"Minijuego con _id {minijuego_id} no encontrado")
-        return minijuego
+        object_id = ObjectId(admin_id)
+        found_projects = await projects_collection.find({"id_administrador": object_id}).to_list(length=None)
+        if not found_projects:
+            logger.info(f"/projects/admin_id/{admin_id}, FROM: {request.client.host}, DETAIL: Projects not found.")
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="Projects not found."
+            )
+        for project in found_projects:
+            project["_id"] = str(project["_id"])  # Convertir ObjectId a str
+            project["id_administrador"] = str(project["id_administrador"])  # Convertir ObjectId a str
+        logger.info(f"/projects/administrador/{admin_id}, FROM: {request.client.host}, DETAIL: Found {len(found_projects)} projects.")
+        return found_projects
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error al buscar minijuego: {str(e)}")
+        logger.error(f"/projects/administrador/{admin_id}, FROM: {request.client.host}, ERROR: {str(e)}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Internal server error."
+        )
 
-# Función para obtener proyecto desde la base de datos
-async def obtener_proyecto_por_id(proyecto_id: str):
-    # Usando ObjectId para MongoDB, si usas otra base de datos, ajusta la consulta.
+# Update
+@router.put("/projects/{project_id}", response_model=dict)
+async def update_project(project_id: str, project: schemas.Proyecto, request: Request):
     try:
-        proyecto = db.proyectos.find_one({"_id": ObjectId(proyecto_id)})
-        if not proyecto:
-            raise HTTPException(status_code=404, detail=f"Proyecto con _id {proyecto_id} no encontrado")
-        return proyecto
+        # Convierte el objeto de entrada a un diccionario
+        project_dict = project.dict()
+        project_dict["id_administrador"] = ObjectId(project.id_administrador)
+        project_dict["_id"] = ObjectId(project_id)
+        result = await projects_collection.update_one(
+            {"_id": project_dict["_id"]},
+            {"$set": project_dict}
+        )
+        if result.modified_count == 0:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"Project not found."
+            )
+        logger.info(f"/projects/{project_id}, FROM: {request.client.host}, DETAIL: Project updated with ID: {id}")
+        updated_project = project.dict()
+        updated_project["_id"] = project_id
+        return updated_project
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error al buscar proyecto: {str(e)}")
+        logger.error(f"/projects/{id}, FROM: {request.client.host}, ERROR: {str(e)}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Internal server error."
+        )
+
+# Delete
+@router.delete("/projects/{id}", status_code=200)
+async def delete_project(id: str):
+    try:
+        object_id = ObjectId(id)
+        result = await projects_collection.delete_one({"_id": object_id})
+        if result.deleted_count == 0:
+            raise HTTPException(status_code=404, detail="Project not found.")
+        return {"message": "Project deleted."}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail="Internal server error.")
+
+import subprocess
+import json
+import os
+
+# BUILDING ROUTES
+
+@router.post("/build", status_code=200)
+async def build_project(project: schemas.Proyecto, request: Request):
+    try:
+        project_data = project.dict()
+        script_path = os.path.join(os.getcwd(), 'data', 'scripts', 'beforeBuilding.py')
+
+        # Crear un archivo temporal para almacenar el JSON
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".json", mode="w", encoding="utf-8") as temp_file:
+            json.dump(project_data, temp_file)
+            temp_file_path = temp_file.name  # Guardar la ruta del archivo
+
+        # Ejecutar el script pasando el archivo en vez del JSON directamente
+        print("BUILD: Ejecutando script...")
+        result = subprocess.run(
+            ['python', script_path, temp_file_path],  # Pasar la ruta del archivo temporal aquí
+            text=True, shell=True, capture_output=True
+        )
+        print("BUILD: Script ejecutado.")
+        # Eliminar el archivo temporal después de ejecutarlo
+        os.remove(temp_file_path)
+
+        # Verificar si el script tuvo un error
+        if result.returncode != 0:
+            logging.error(f"Error en beforeBuilding.py | Código: {result.returncode} | STDERR: {result.stderr}")
+            raise HTTPException(
+                status_code=500, 
+                detail={
+                    "error": "Error while running script",
+                    "code": result.returncode,
+                    "stderr": result.stderr.strip()
+                }
+            )
+
+        return {
+            "message": "Project build initiated successfully",
+            "output": result.stdout.strip()
+        }
+
+    except json.JSONDecodeError:
+        raise HTTPException(status_code=400, detail="Invalid JSON input")
     
-# Construir archivos.js a partir de minijuegos o proyectos
-@router.get("/build/")
-async def build(diseños: schemas.Diseños, request: Request):
-    try:
-        # Recibir los minijuegos y proyectos
-        minijuegos_data = []
-        proyectos_data = []
-
-        # Obtener minijuegos
-        for minijuego in diseños.minijuegos:
-            minijuego_data = await obtener_minijuego_por_id(minijuego._id)
-            minijuegos_data.append(minijuego_data)
-
-        # Obtener proyectos
-        for proyecto in diseños.proyectos:
-            proyecto_data = await obtener_proyecto_por_id(proyecto._id)
-            proyectos_data.append(proyecto_data)
-
-        # Ahora puedes usar `minijuegos_data` y `proyectos_data` para construir el archivo .js
-
-        # Aquí es donde puedes crear el archivo .js, por ejemplo:
-        js_content = """
-        // Archivo JS generado dinámicamente
-        const minijuegos = %s;
-        const proyectos = %s;
-
-        console.log("Minijuegos:", minijuegos);
-        console.log("Proyectos:", proyectos);
-        """ % (minijuegos_data, proyectos_data)
-
-        # Guardar el archivo .js en el servidor temporalmente
-        js_file_path = "generated_file.js"
-        with open(js_file_path, "w") as js_file:
-            js_file.write(js_content)
-
-        # Retornar el archivo para la descarga
-        return JSONResponse(content={"file_path": js_file_path}, status_code=200)
-
+    except FileNotFoundError as e:
+        logging.error(f"File not found: {e}")
+        raise HTTPException(status_code=500, detail="Script file not found. Ensure beforeBuilding.py exists.")
+    
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error al construir el archivo .js: {str(e)}")
+        logging.error(f"Unexpected error: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Unexpected error: {str(e)}")

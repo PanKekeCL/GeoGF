@@ -10,10 +10,10 @@ const Trivia = ({ data, handlePageChange }) => {
         imagen: "",
         mezclarRespuestas: false,
         respuestas: []
-    })
+    });
 
     useEffect(() => {
-        console.log("Actualizando pagina actual:", data)
+        console.log("Actualizando pagina actual:", data);
         const { enunciado, imagen, mezclarRespuestas, respuestas } = data;
         setPage({
             enunciado: enunciado || "",
@@ -24,10 +24,7 @@ const Trivia = ({ data, handlePageChange }) => {
     }, [data]);
 
     const handleQuestionChange = (e) => {
-        const updatedPage = {
-            ...page,
-            enunciado: e.target.value
-        };
+        const updatedPage = { ...page, enunciado: e.target.value };
         setPage(updatedPage);
         handlePageChange(updatedPage);
     };
@@ -37,10 +34,7 @@ const Trivia = ({ data, handlePageChange }) => {
         if (file) {
             const reader = new FileReader();
             reader.onloadend = () => {
-                const updatedPage = {
-                    ...page,
-                    imagen: reader.result
-                };
+                const updatedPage = { ...page, imagen: reader.result };
                 setPage(updatedPage);
                 handlePageChange(updatedPage);
             };
@@ -49,19 +43,13 @@ const Trivia = ({ data, handlePageChange }) => {
     };
 
     const handleDeleteImage = () => {
-        const updatedPage = {
-            ...page,
-            imagen: ""
-        };
+        const updatedPage = { ...page, imagen: "" };
         setPage(updatedPage);
         handlePageChange(updatedPage);
     };
 
     const toggleShuffleAnswers = () => {
-        const updatedPage = {
-            ...page,
-            mezclarRespuestas: !page.mezclarRespuestas
-        };
+        const updatedPage = { ...page, mezclarRespuestas: !page.mezclarRespuestas };
         setPage(updatedPage);
         handlePageChange(updatedPage);
     };
@@ -69,29 +57,26 @@ const Trivia = ({ data, handlePageChange }) => {
     const handleAddAnswer = () => {
         const updatedPage = {
             ...page,
-            respuestas: [
-                ...page.respuestas,
-                { texto: "", correcta: false }
-            ]
+            respuestas: [...page.respuestas, { texto: "", correcta: false }]
         };
         setPage(updatedPage);
         handlePageChange(updatedPage);
     };
 
     const handleAnswerChange = (e, index) => {
-        const { value } = e.target;
         const updatedRespuestas = [...page.respuestas];
-        updatedRespuestas[index].texto = value;
-        setPage({ ...page, respuestas: updatedRespuestas });
-        handlePageChange({ ...page, respuestas: updatedRespuestas });
+        updatedRespuestas[index].texto = e.target.value;
+        const updatedPage = { ...page, respuestas: updatedRespuestas };
+        setPage(updatedPage);
+        handlePageChange(updatedPage);
     };
 
     const toggleAnswerStatus = (e, index) => {
-        const { value } = e.target;
         const updatedRespuestas = [...page.respuestas];
-        updatedRespuestas[index].correcta = value === 'correcta';
-        setPage({ ...page, respuestas: updatedRespuestas });
-        handlePageChange({ ...page, respuestas: updatedRespuestas });
+        updatedRespuestas[index].correcta = e.target.value === 'correcta';
+        const updatedPage = { ...page, respuestas: updatedRespuestas };
+        setPage(updatedPage);
+        handlePageChange(updatedPage);
     };
 
     const handleDeleteAnswer = (index) => {
@@ -111,7 +96,7 @@ const Trivia = ({ data, handlePageChange }) => {
                 <input
                     type="text"
                     value={page.enunciado || ''}
-                    onChange={(e) => handleQuestionChange(e)}
+                    onChange={handleQuestionChange}
                     className="w-full p-2 border border-gray-300 rounded-md"
                     placeholder="Escribe tu pregunta"
                 />
@@ -134,8 +119,6 @@ const Trivia = ({ data, handlePageChange }) => {
                         onChange={handleUploadImage}
                         className="hidden"
                     />
-
-                    {/* Imagen o mensaje de "no hay imagen" */}
                     {page.imagen ? (
                         <div className="flex items-center space-x-4">
                             <img
@@ -156,7 +139,7 @@ const Trivia = ({ data, handlePageChange }) => {
                 </div>
             </div>
 
-
+            {/* Mezclar respuestas */}
             <div className="my-4 flex items-center gap-x-2">
                 <label className="text-gray-800 font-medium">
                     ¿Mezclar orden de las respuestas?
@@ -169,14 +152,11 @@ const Trivia = ({ data, handlePageChange }) => {
                 />
             </div>
 
-
             {/* Respuestas */}
             <div>
                 <h3 className="text-gray-800 font-medium">Respuestas:</h3>
-
                 {page.respuestas?.map((respuesta, index) => (
                     <div key={index} className="p-4 mb-4 w-full bg-white rounded-md border flex items-center space-x-4">
-
                         {/* Enumeracion */}
                         <div className="w-[5%] flex justify-center">
                             <span className="text-gray-800 font-medium">{index + 1}</span>
@@ -215,16 +195,14 @@ const Trivia = ({ data, handlePageChange }) => {
                                 <RemoveIcon color="#FFFFFF" size={30} />
                             </button>
                         </div>
-
                     </div>
-
                 ))}
 
                 {page.respuestas?.length < 6 && (
                     <button
                         onClick={handleAddAnswer}
                         className="h-12 w-12 bg-[#97F218] hover:bg-[#87d916] text-white rounded-md flex items-center justify-center"
-                        title="Añadir concepto"
+                        title="Añadir respuesta"
                     >
                         <AddIcon color="#FFFFFF" size={30} />
                     </button>
@@ -232,7 +210,6 @@ const Trivia = ({ data, handlePageChange }) => {
             </div>
         </div>
     );
-
 };
 
 export default Trivia;

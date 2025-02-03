@@ -1,15 +1,21 @@
-import React, { useState, useEffect } from "react"; 
+import React, { useState, useEffect } from "react";
 import { MapContainer, TileLayer, Marker } from "react-leaflet";
 import { Link } from 'react-router-dom';
 import "leaflet/dist/leaflet.css";
 import BackIcon from "../../assets/icons/backIcon";
+import PinIcon from "../../assets/icons/pinIcon";
+import SaveIcon from "../../assets/icons/saveIcon";
+import PlaceOnMap from "./placeOnMap";
 
 const ProjectConfig = ({ data, handleConfigChange, handleSubmit }) => {
+    const [isMapOpen, setIsMapOpen] = useState(false);
     const [config, setConfig] = useState({
         nombre: "",
         descripcion: "",
-        latitud: -39.814, // Coordenadas iniciales para Valdivia
-        longitud: -73.247,
+        geometry: {
+            type: "Point",
+            coordinates: [-73.247, -39.814]
+        }
     });
 
     useEffect(() => {
@@ -18,51 +24,40 @@ const ProjectConfig = ({ data, handleConfigChange, handleSubmit }) => {
                 ...prevConfig,
                 nombre: data.nombre || "",
                 descripcion: data.descripcion || "",
-                latitud: data.latitud || -39.814,
-                longitud: data.longitud || -73.247,
+                geometry: {
+                    ...prevConfig.geometry,
+                    coordinates: [
+                        data.geometry?.coordinates[0] || -73.247,
+                        data.geometry?.coordinates[1] || -39.814
+                    ]
+                }
             }));
-        }
-    }, [data]);
-
-    // Función para calcular el promedio de las coordenadas, solo con coordenadas válidas
-    const calculateAverageCoordinates = (minigames) => {
-        const validMinigames = minigames.filter((minigame) => {
-            // Verificamos si `geometry` y `coordinates` existen y son válidos
-            return (
-                minigame.geometry &&
-                minigame.geometry.coordinates &&
-                Array.isArray(minigame.geometry.coordinates) &&
-                !isNaN(minigame.geometry.coordinates[0]) &&
-                !isNaN(minigame.geometry.coordinates[1])
-            );
-        });
-
-        if (validMinigames.length === 0) return { lat: -39.814, lng: -73.247 }; // Coordenadas por defecto si no hay minijuegos válidos
-
-        const totalLat = validMinigames.reduce((acc, minigame) => acc + minigame.geometry.coordinates[1], 0);
-        const totalLng = validMinigames.reduce((acc, minigame) => acc + minigame.geometry.coordinates[0], 0);
-
-        return {
-            lat: totalLat / validMinigames.length,
-            lng: totalLng / validMinigames.length
-        };
-    };
-
-    const [minigamesLocation, setMinigamesLocation] = useState({ lat: -39.814, lng: -73.247 });
-
-    useEffect(() => {
-        if (data && data.minijuegos && data.minijuegos.length > 0) {
-            const averageCoords = calculateAverageCoordinates(data.minijuegos);
-            setMinigamesLocation(averageCoords);
         }
     }, [data]);
 
     const handleInputChange = (e, field) => {
         const { value } = e.target;
-        const updatedConfig = {
-            ...config,
-            [field]: value,
-        };
+        let updatedConfig;
+
+        if (field === "latitude" || field === "longitude") {
+            const index = field === "latitude" ? 1 : 0;
+            const newCoordinates = [...config.geometry.coordinates];
+            newCoordinates[index] = parseFloat(value) || 0;
+
+            updatedConfig = {
+                ...config,
+                geometry: {
+                    ...config.geometry,
+                    coordinates: newCoordinates
+                }
+            };
+        } else {
+            updatedConfig = {
+                ...config,
+                [field]: value,
+            };
+        }
+
         setConfig(updatedConfig);
         handleConfigChange(updatedConfig);
     };
@@ -70,6 +65,21 @@ const ProjectConfig = ({ data, handleConfigChange, handleSubmit }) => {
     const handleSubmitForm = (e) => {
         e.preventDefault();
         handleSubmit(config);
+    };
+
+    const handleConfirmLocation = (position) => {
+        setConfig({
+            ...config,
+            geometry: {
+                ...config.geometry,
+                coordinates: [position.lng, position.lat]
+            }
+        });
+        setIsMapOpen(false);
+    };
+
+    const handleCancelLocation = () => {
+        setIsMapOpen(false);
     };
 
     return (
@@ -83,7 +93,7 @@ const ProjectConfig = ({ data, handleConfigChange, handleSubmit }) => {
                 <h1 className="text-center text-xl font-semibold mb-4">Configuración del Proyecto</h1>
             </div>
 
-            <form onSubmit={handleSubmitForm} className="space-y-4">
+            <form onSubmit={handleSubmitForm} className="space-y-2">
                 <div>
                     <label htmlFor="nombre" className="block text-gray-800 font-medium">
                         Nombre del Proyecto:
@@ -114,9 +124,44 @@ const ProjectConfig = ({ data, handleConfigChange, handleSubmit }) => {
                     />
                 </div>
 
-                <div className="mb-4" style={{ height: "38vh", minHeight: "128px" }}>
+                <div>
+                    <label htmlFor="ubicacion" className="block text-gray-800 font-medium">
+                        Ubicación:
+                    </label>
+                    <div className="flex space-x-2">
+                        <input
+                            id="latitude"
+                            name="latitude"
+                            type="number"
+                            step="any"
+                            value={config.geometry.coordinates[1]}
+                            onChange={(e) => handleInputChange(e, "latitude")}
+                            className="w-full p-2 border border-gray-300 rounded-md"
+                            placeholder="Latitud"
+                        />
+                        <input
+                            id="longitude"
+                            name="longitude"
+                            type="number"
+                            step="any"
+                            value={config.geometry.coordinates[0]}
+                            onChange={(e) => handleInputChange(e, "longitude")}
+                            className="w-full p-2 border border-gray-300 rounded-md"
+                            placeholder="Longitud"
+                        />
+                        <button
+                            type="button"
+                            className="bg-green-500 text-white p-2 rounded-md hover:bg-green-600"
+                            onClick={() => setIsMapOpen(!isMapOpen)}
+                        >
+                            <PinIcon />
+                        </button>
+                    </div>
+                </div>
+
+                <div style={{ height: "30vh", minHeight: "100px" }}>
                     <MapContainer
-                        center={[minigamesLocation.lat, minigamesLocation.lng]}
+                        center={[config.geometry.coordinates[1], config.geometry.coordinates[0]]}
                         zoom={14}
                         style={{ height: "100%", width: "100%" }}
                         attributionControl={false}
@@ -125,26 +170,35 @@ const ProjectConfig = ({ data, handleConfigChange, handleSubmit }) => {
                             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                             attribution="&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors"
                         />
+                        <Marker position={[config.geometry.coordinates[1], config.geometry.coordinates[0]]} />
                         {data?.minijuegos?.map((minigame, index) => {
-                            // Verificamos si `geometry` y `coordinates` existen y son válidos antes de crear el marcador
                             const lat = minigame.geometry?.coordinates ? minigame.geometry.coordinates[1] : null;
                             const lng = minigame.geometry?.coordinates ? minigame.geometry.coordinates[0] : null;
-                            
-                            if (lat && lng && !isNaN(lat) && !isNaN(lng)) {
+
+                            if (lat !== null && lng !== null && !isNaN(lat) && !isNaN(lng)) {
                                 return <Marker key={index} position={[lat, lng]} />;
                             }
-                            return null; // No crear marcador si las coordenadas no son válidas o están vacías
+                            return null;
                         })}
                     </MapContainer>
                 </div>
 
                 <button
                     type="submit"
-                    className="mt-6 w-full bg-blue-500 text-white font-bold py-3 rounded-md hover:bg-blue-600"
+                    className="mt-6 w-full bg-[#97F218] font-bold py-3 rounded-md hover:bg-[#87d916] flex items-center justify-center space-x-2"
                 >
-                    Guardar Configuración
+                    <SaveIcon color="#222222" size={30} />
+                    Guardar cambios a Proyecto
                 </button>
             </form>
+            {isMapOpen && (
+                    <PlaceOnMap
+                        initialLat={config.geometry.coordinates[1]}
+                        initialLng={config.geometry.coordinates[0]}
+                        onConfirm={handleConfirmLocation}
+                        onCancel={handleCancelLocation}
+                    />
+                )}
         </div>
     );
 };

@@ -38,6 +38,7 @@ const PlaceOnMap = ({ initialLat, initialLng, onConfirm, onCancel }) => {
           center={[position.lat, position.lng]}
           zoom={13}
           className="h-96 w-full"
+          attributionControl={false}
         >
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

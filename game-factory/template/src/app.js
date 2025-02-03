@@ -1,11 +1,10 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-
-// Importar componentes estáticos
+// Importar paginas estaticas.
 import Menu from "./pages/menu";
 import Map from "./pages/map";
 
-// Función para importar dinámicamente minijuegos
+// Importar paginas dinamicas (minijuegos).
 const importMinigames = () => {
   const minigames = {};
   const context = require.context("./pages/minigames", false, /\.js$/); // Buscar archivos .js en minigames

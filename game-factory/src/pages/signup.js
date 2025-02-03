@@ -13,9 +13,8 @@ const Signup = () => {
   const { registerAdmin, loading } = useApi();
   const { login } = useAuth();
 
-  const validarCorreo = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  const validarContrasena = (password) =>
-    /[A-Za-z]/.test(password) && /\d/.test(password) && password.length >= 8;
+  const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const validatePassword = (password) => /[A-Za-z]/.test(password) && /\d/.test(password) && password.length >= 8;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,10 +23,10 @@ const Signup = () => {
     if (!nombre.trim()) {
       erroresTemp.nombre = 'El nombre es obligatorio.';
     }
-    if (!validarCorreo(correo)) {
+    if (!validateEmail(correo)) {
       erroresTemp.correo = 'Ingresa un correo válido.';
     }
-    if (!validarContrasena(contrasena)) {
+    if (!validatePassword(contrasena)) {
       erroresTemp.contrasena =
         "La contraseña debe incluir 8 caracteres, letras y números.";
     }

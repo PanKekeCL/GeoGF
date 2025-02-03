@@ -31,6 +31,7 @@ class Minijuego(BaseModel):
 class Proyecto(BaseModel):
     nombre: Optional[str] = ""
     descripcion: Optional[str] = ""
+    geometry: Optional[Dict] = {}
     minijuegos: Optional[List[Dict[str, Any]]] = []
     ultimaModificacion: str
     id_administrador: str

@@ -3,8 +3,9 @@ import DeleteIcon from "../assets/icons/deleteIcon.js";
 import EditIcon from "../assets/icons/editIcon.js";
 import BoxIcon from "../assets/icons/boxIcon.js";
 import CrossIcon from "../assets/icons/crossIcon.js";
+import CheckIcon from "../assets/icons/checkIcon.js";
 
-const MinigameList = ({ items = [], loading, onEditClick, onDeleteClick, onSelectClick }) => {
+const MinigameList = ({ items = [], loading, onEditClick, onDeleteClick, onSelectClick, selectedMinigames = [] }) => {
 
     const calcularTiempoTranscurrido = (fechaModificacion) => {
         const fecha = new Date(fechaModificacion);
@@ -47,7 +48,7 @@ const MinigameList = ({ items = [], loading, onEditClick, onDeleteClick, onSelec
                                         className={`font-semibold text-lg ${!item.nombre ? "text-gray-400" : "text-gray-800"
                                             }`}
                                     >
-                                        {item.nombre || "Sin título"}
+                                        {item.nombre && item.nombre.length > 40 ? `${item.nombre.slice(0,40)}...` : item.nombre || "Sin título"}
                                     </h3>
                                     <p
                                         className={`text-sm ${!item.tipo ? "text-gray-400" : "text-gray-600"
@@ -59,8 +60,8 @@ const MinigameList = ({ items = [], loading, onEditClick, onDeleteClick, onSelec
                                         className={`text-xs ${!item.descripcion ? "text-gray-400" : "text-gray-600"
                                             }`}
                                     >
-                                        {item.descripcion && item.descripcion.length > 150
-                                            ? `${item.descripcion.slice(0, 150)}...`
+                                        {item.descripcion && item.descripcion.length > 120
+                                            ? `${item.descripcion.slice(0, 120)}...`
                                             : item.descripcion || "Sin descripción"}
                                     </p>
                                 </div>
@@ -91,16 +92,17 @@ const MinigameList = ({ items = [], loading, onEditClick, onDeleteClick, onSelec
                                     
                                     {onSelectClick && (
                                         <button
-                                            className={`w-12 h-12 py-2 text-white rounded-md flex items-center justify-center ${item.seleccionado === undefined || item.seleccionado === false
-                                                ? "bg-[#18F25A] hover:bg-[#16D94E]"
-                                                : "bg-[#F2182A] hover:bg-[#D91626]"
+                                            className={`w-12 h-12 py-2 text-white rounded-md flex items-center justify-center border  ${selectedMinigames?.some((minigame) => minigame._id === item._id)
+                                                ? "bg-blue-500 hover:bg-blue-700 border-blue-700"
+                                                : "bg-[#FFFFFF] hover:bg-[#EEEEEE] border-gray-300"
                                                 }`}
                                             onClick={() => onSelectClick(item._id)}
                                         >
-                                            {item.seleccionado === undefined || item.seleccionado === false ? (
-                                                <BoxIcon color="#FFFFFF" size={24} />
+                                            {selectedMinigames?.some((minigame) => minigame._id === item._id) ? (
+                                                <CheckIcon color="#FFFFFF" size={25} />
                                             ) : (
-                                                <CrossIcon color="#FFFFFF" size={24} />
+                                                <CheckIcon color="#FFFFFF" size={25} />
+                                                // <CrossIcon color="#BBBBBB" size={24} />
                                             )}
                                         </button>
                                     )}

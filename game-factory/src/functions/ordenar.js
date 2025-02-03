@@ -3,42 +3,15 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import palettes from './palettes';
 
 const Ordenar = () => {
-    const data = {
-        nombre: "Minijuego de Ordenar",
-        descripcion: "Organiza los conceptos en el orden correcto.",
-        mezclarPaginas: true,
-        paleta: "Predeterminado",
-        paginas: [
-            {
-                enunciado: "Ordena los planetas del sistema solar según su distancia al Sol",
-                tipo_concepto: "Texto",
-                conceptos: [
-                    { texto: "Mercurio" },
-                    { texto: "Venus" },
-                    { texto: "Tierra" },
-                    { texto: "Marte" },
-                ],
-            },
-            {
-                enunciado: "Ordena las capas de la atmósfera de la más baja a la más alta",
-                tipo_concepto: "Texto",
-                conceptos: [
-                    { texto: "Troposfera" },
-                    { texto: "Estratosfera" },
-                    { texto: "Mesosfera" },
-                    { texto: "Termosfera" },
-                ],
-            },
-        ],
-    };
+    const data = {};
+
+    const palette = {};
 
     const [currentPage, setCurrentPage] = useState(0);
     const [shuffledPages, setShuffledPages] = useState([]);
     const [currentOrder, setCurrentOrder] = useState([]);
     const [checkAnswers, setCheckAnswers] = useState(false);
     const [score, setScore] = useState(0);
-
-    const palette = palettes[data.paleta] || palettes["Predeterminado"];
 
     useEffect(() => {
         const pages = data.mezclarPaginas

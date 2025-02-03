@@ -3,7 +3,7 @@ import SearchIcon from '../assets/icons/searchIcon';
 import MinigameList from './minigameList';
 import ProjectList from './projectList';
 
-const BuildableDesigns = ({ minigames, projects, onSelectMinigame, onSelectProject }) => {
+const BuildableDesigns = ({ minigames, projects, selectedMinigames = [], selectedProject = null, onSelectMinigame, onSelectProject }) => {
   const [activeTab, setActiveTab] = useState('proyectos');
   const [searchTerm, setSearchTerm] = useState('');
   const [sortBy, setSortBy] = useState('nombre');
@@ -88,6 +88,7 @@ const BuildableDesigns = ({ minigames, projects, onSelectMinigame, onSelectProje
       {activeTab === "minijuegos" && (
         <MinigameList
           items={filteredItems}
+          selectedMinigames={selectedMinigames}
           onSelectClick={onSelectMinigame}
         />
       )}
@@ -96,6 +97,7 @@ const BuildableDesigns = ({ minigames, projects, onSelectMinigame, onSelectProje
       {activeTab === "proyectos" && (
         <ProjectList
           items={filteredItems}
+          selectedProject={selectedProject}
           onSelectClick={onSelectProject}
         />
       )}

@@ -16,12 +16,13 @@ const Project = () => {
   const { user } = useAuth(); // Obtén el usuario autenticado
 
   // Hook de API
-  const { saveProyecto, getProyectoByID } = useApi();
+  const { saveProject, getProjectByID } = useApi();
 
   // Data inicial
   const [data, setData] = useState({
     nombre: '',
     descripcion: '',
+    geometry: {type: null, coordinates: [0,0]},
     minijuegos: [],
     id_administrador: user._id
   });
@@ -37,7 +38,7 @@ const Project = () => {
       // Asegúrate de que la función es asíncrona
       const fetchProyecto = async () => {
         try {
-          const proyecto = await getProyectoByID(ID);  // Asegúrate de esperar la respuesta
+          const proyecto = await getProjectByID(ID);  // Asegúrate de esperar la respuesta
           if (proyecto) {
             setData(proyecto);
             console.log('Proyecto cargado:', proyecto);
@@ -54,7 +55,7 @@ const Project = () => {
   
       fetchProyecto();
     }
-  }, [ID, hasFetched, getProyectoByID]); // La consulta solo se hace si 'ID' cambia y 'hasFetched' es false
+  }, [ID, hasFetched, getProjectByID]); // La consulta solo se hace si 'ID' cambia y 'hasFetched' es false
 
   const handleConfigChange = (newConfig) => {
     setData((prevData) => ({
@@ -81,7 +82,7 @@ const Project = () => {
     };
     try {
       // Si el proyecto tiene ID, se actualiza
-      const response = await saveProyecto(outputData);
+      const response = await saveProject(outputData);
       if (ID !== response._id) {
         navigate(`/project?id=${response._id}`);
       }

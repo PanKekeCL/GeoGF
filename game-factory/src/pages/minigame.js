@@ -16,7 +16,7 @@ const Minigame = () => {
   const { user } = useAuth(); // Obtén el usuario autenticado
 
   // Hook de API
-  const { saveMinijuego, getMinijuegoByID } = useApi();
+  const { saveMinigame, getMinigameByID } = useApi();
 
   // Data inicial
   const [data, setData] = useState({
@@ -40,7 +40,7 @@ const Minigame = () => {
       // Asegúrate de que la función es asíncrona
       const fetchMinijuego = async () => {
         try {
-          const minijuego = await getMinijuegoByID(ID);  // Asegúrate de esperar la respuesta
+          const minijuego = await getMinigameByID(ID);  // Asegúrate de esperar la respuesta
           if (minijuego) {
             setData(minijuego);
             console.log('Minijuego cargado:', minijuego);
@@ -57,7 +57,7 @@ const Minigame = () => {
   
       fetchMinijuego();
     }
-  }, [ID, hasFetched, getMinijuegoByID]); // La consulta solo se hace si 'ID' cambia y 'hasFetched' es false
+  }, [ID, hasFetched, getMinigameByID]); // La consulta solo se hace si 'ID' cambia y 'hasFetched' es false
 
   const handleConfigChange = (newConfig) => {
     setData((prevData) => ({
@@ -84,7 +84,7 @@ const Minigame = () => {
     console.log("Ingresado a DB la fecha: ", ahora)
     try {
       // Si el minijuego tiene ID, se actualiza
-      const response = await saveMinijuego(outputData);
+      const response = await saveMinigame(outputData);
       if (ID !== response._id) {
         navigate(`/minigame?id=${response._id}`);
       }

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import BackIcon from '../../assets/icons/backIcon';
 import SaveIcon from '../../assets/icons/saveIcon';
 
-const MinigameConfig = ({ data, handleConfigChange, handleSubmit, moveMapTo }) => {
+const MinigameConfig = ({ data = {}, handleConfigChange, handleSubmit, moveMapTo }) => {
     const [config, setConfig] = useState({
         nombre: '',
         descripcion: '',
@@ -38,35 +38,6 @@ const MinigameConfig = ({ data, handleConfigChange, handleSubmit, moveMapTo }) =
 
     const handleSubmitForm = (e) => {
         e.preventDefault();
-
-        // Filtrar los marcadores válidos con coordenadas definidas
-        const validMarkers = (data || []).filter(
-            (item) =>
-                item.geometry &&
-                item.geometry.coordinates &&
-                !isNaN(item.geometry.coordinates[0]) &&
-                !isNaN(item.geometry.coordinates[1])
-        );
-
-        if (validMarkers.length > 0) {
-            // Calcular la ubicación promedio
-            const totalCoords = validMarkers.reduce(
-                (acc, item) => {
-                    acc.lat += item.geometry.coordinates[0];
-                    acc.lng += item.geometry.coordinates[1];
-                    return acc;
-                },
-                { lat: 0, lng: 0 }
-            );
-
-            const averageLat = totalCoords.lat / validMarkers.length;
-            const averageLng = totalCoords.lng / validMarkers.length;
-
-            // Mover el mapa a la ubicación promedio
-            moveMapTo(averageLat, averageLng);
-        }
-
-        // Enviar la configuración actualizada
         handleSubmit(config);
     };
 
@@ -171,7 +142,7 @@ const MinigameConfig = ({ data, handleConfigChange, handleSubmit, moveMapTo }) =
                     className="mt-6 w-full bg-[#97F218] font-bold py-3 rounded-md hover:bg-[#87d916] flex items-center justify-center space-x-2"
                 >
                     <SaveIcon color="#222222" size={30} />
-                    <span>Guardar cambios</span>
+                    <span>Guardar cambios a Minijuego</span>
                 </button>
             </form>
         </div>

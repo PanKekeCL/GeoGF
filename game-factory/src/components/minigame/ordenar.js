@@ -42,7 +42,7 @@ const Ordenar = ({ data, handlePageChange }) => {
         handlePageChange(updatedPage);
     };
 
-    const handleDeleteConcepto = (index) => {
+    const handleDeleteConcept = (index) => {
         const updatedConceptos = page.conceptos.filter((_, i) => i !== index);
         const updatedPage = { ...page, conceptos: updatedConceptos };
         setPage(updatedPage);
@@ -60,12 +60,17 @@ const Ordenar = ({ data, handlePageChange }) => {
 
     const handleFileChange = (e, index) => {
         const file = e.target.files[0];
-        const updatedConceptos = page.conceptos.map((concepto, i) =>
-            i === index ? { ...concepto, imagen: file } : concepto
-        );
-        const updatedPage = { ...page, conceptos: updatedConceptos };
-        setPage(updatedPage);
-        handlePageChange(updatedPage);
+
+        const reader = new FileReader();
+        reader.onload = () => {
+            const updatedConceptos = page.conceptos.map((concepto, i) =>
+                i === index ? { ...concepto, imagen: reader.result } : concepto
+            );
+            const updatedPage = { ...page, conceptos: updatedConceptos };
+            setPage(updatedPage);
+            handlePageChange(updatedPage);
+        };
+        reader.readAsDataURL(file);  // Leemos el archivo como URL base64
     };
 
     const handleRemoveImage = (index) => {
@@ -79,7 +84,6 @@ const Ordenar = ({ data, handlePageChange }) => {
 
     return (
         <div>
-            {/* Enunciado */}
             <div className="mb-4">
                 <label className="text-gray-800 font-medium">Enunciado:</label>
                 <input
@@ -91,7 +95,6 @@ const Ordenar = ({ data, handlePageChange }) => {
                 />
             </div>
 
-            {/* Tipo de Orden */}
             <div className="mb-4">
                 <label className="block text-gray-800 font-medium">Tipo de conceptos:</label>
                 <select
@@ -104,17 +107,14 @@ const Ordenar = ({ data, handlePageChange }) => {
                 </select>
             </div>
 
-            {/* Conceptos */}
             <div>
                 <p className="block text-gray-800 font-medium">Conceptos a ordenar:</p>
                 {page.conceptos.map((concepto, index) => (
                     <div key={index} className="flex items-center space-x-4 mb-4 border rounded-md">
-                        {/* Número del concepto */}
                         <div className="w-8 text-right font-bold text-gray-800">
                             {index + 1}
                         </div>
 
-                        {/* Input de texto o imagen */}
                         <div className="flex-grow p-2">
                             {page.tipoConcepto === 'imagen' ? (
                                 <div className="flex items-center space-x-4">
@@ -134,7 +134,7 @@ const Ordenar = ({ data, handlePageChange }) => {
                                     {concepto.imagen ? (
                                         <div className="flex items-center space-x-2">
                                             <img
-                                                src={URL.createObjectURL(concepto.imagen)}
+                                                src={concepto.imagen}  // Asegúrate de que la URL base64 se usa aquí
                                                 alt={`Concepto ${index + 1}`}
                                                 className="max-h-24 max-w-24 rounded-md"
                                             />
@@ -161,9 +161,8 @@ const Ordenar = ({ data, handlePageChange }) => {
                             )}
                         </div>
 
-                        {/* Botón de eliminar concepto */}
                         <button
-                            onClick={() => handleDeleteConcepto(index)}
+                            onClick={() => handleDeleteConcept(index)}
                             className="h-12 w-12 bg-[#F2182A] hover:bg-[#D91626] text-white rounded-md flex items-center justify-center"
                             title="Eliminar concepto"
                         >
