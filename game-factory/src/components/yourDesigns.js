@@ -13,7 +13,7 @@ const YourDesigns = () => {
   const [filteredProyectos, setFilteredProyectos] = useState([]);
   const [activeTab, setActiveTab] = useState("minijuegos");
   const [searchTerm, setSearchTerm] = useState("");
-  const [sortBy, setSortBy] = useState("nombre");
+  const [sortBy, setSortBy] = useState("fecha");
   const [hasFetched, setHasFetched] = useState(false);
 
   const navigate = useNavigate();
@@ -60,7 +60,7 @@ const YourDesigns = () => {
         .sort((a, b) => {
           if (sortBy === "nombre") {
             return a.nombre.localeCompare(b.nombre);
-          } else if (sortBy === "fechaModificacion") {
+          } else if (sortBy === "fecha") {
             return new Date(b.ultimaModificacion) - new Date(a.ultimaModificacion);
           }
           return 0;
@@ -140,15 +140,15 @@ const YourDesigns = () => {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
-        <div className="flex items-center w-1/3 gap-2">
+        <div className="flex items-center gap-2">
           <span className="font-medium text-gray-700 mr-2">Ordenar:</span>
           <select
             className="p-2 border border-gray-300 rounded-md"
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
           >
-            <option value="nombre">Alfabéticamente</option>
-            <option value="fechaModificacion">Recientemente</option>
+            <option value="fecha">Por Fecha</option>
+            <option value="nombre">Por Nombre</option>
           </select>
         </div>
       </div>

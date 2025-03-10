@@ -61,18 +61,19 @@ const MinigameSelector = ({ selectedMinigames = [], handleMinigamesChange }) => 
                 (item) => item._id !== minigame._id
             );
         } else {
-            // Seleccionar minijuego
+            // Copia y añade la información del minijuego al proyecto.
             const newMinigame = {
                 _id: minigame._id,
                 nombre: minigame.nombre,
                 descripcion: minigame.descripcion,
                 tipo: minigame.tipo,
                 geometry: minigame.geometry || {},
-                paginas: minigame.paginas || [], // Copiar la lista de páginas del minijuego original
+                paginas: minigame.paginas || [],
+                mezclarPaginas: minigame.mezclarPaginas || false,
+                paleta: minigame.paleta
             };
             updatedMinigames = [...selectedMinigames, newMinigame];
         }
-
         handleMinigamesChange(updatedMinigames);
     };
 

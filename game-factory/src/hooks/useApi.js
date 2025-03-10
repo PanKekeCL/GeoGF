@@ -51,7 +51,6 @@ export const useApi = () => {
     };
 
     const getMinigamesByAdminID = async (adminId) => {
-        setLoading(true);
         setError(null);
         try {
             const response = await axios.get(`${API_BASE_URL}/minigames/admin_id/${adminId}`);
@@ -63,8 +62,6 @@ export const useApi = () => {
                 return []; // Return an empty list if the resource does not exist
             }
             return [];
-        } finally {
-            setLoading(false);
         }
     };
 
@@ -91,7 +88,6 @@ export const useApi = () => {
     };
 
     const getMinigameByID = async (id) => {
-        setLoading(true);
         setError(null);
         try {
             const response = await axios.get(`${API_BASE_URL}/minigames/${id}`);
@@ -101,8 +97,6 @@ export const useApi = () => {
             setError(err.response ? err.response.data.detail : "Connection error");
             console.error("Error fetching minigame by ID:", err);
             throw err;
-        } finally {
-            setLoading(false);
         }
     };
 
@@ -117,7 +111,6 @@ export const useApi = () => {
     };
 
     const getProjectsByAdminID = async (adminId) => {
-        setLoading(true);
         setError(null);
         try {
             const response = await axios.get(`${API_BASE_URL}/projects/admin_id/${adminId}`);
@@ -129,13 +122,10 @@ export const useApi = () => {
                 return [];
             }
             return [];
-        } finally {
-            setLoading(false);
         }
     };
 
     const getProjectByID = async (id) => {
-        setLoading(true);
         setError(null);
         try {
             const response = await axios.get(`${API_BASE_URL}/projects/${id}`);
@@ -145,8 +135,6 @@ export const useApi = () => {
             setError(err.response ? err.response.data.detail : "Connection error");
             console.error("Error fetching project by ID:", err);
             throw err;
-        } finally {
-            setLoading(false);
         }
     };
 
@@ -173,6 +161,8 @@ export const useApi = () => {
     };
 
     const deleteProjectByID = async (id) => {
+        setLoading(true);
+        setError(null);
         try {
             const response = await axios.delete(`${API_BASE_URL}/projects/${id}`);
             return response.data;
@@ -180,19 +170,22 @@ export const useApi = () => {
             console.error("Error deleting the project:", error);
             throw new Error("Failed to delete the project.");
         }
+        finally {
+            setLoading(false);
+        }
     };
 
     const buildProject = async (project) => {
-        setLoading(true); // Iniciar la carga
-        setError(null); // Limpiar el error previo
+        setLoading(true);
+        setError(null);
         try {
             const response = await axios.post(`${API_BASE_URL}/build`, project);
             return response.data;
         } catch (error) {
             console.error("Error building the project:", error);
-            setError("Failed to build the project."); // Establecer el mensaje de error
+            setError("No se pudo construir el proyecto");
         } finally {
-            setLoading(false); // Detener el estado de carga
+            setLoading(false);
         }
     };
 

@@ -1,0 +1,12 @@
+# Ignorar todo dentro de data/
+api-geogf/data/*
+
+# Excepciones: permitir bin, scripts y template
+!api-geogf/data/bin/
+!api-geogf/data/scripts/
+!api-geogf/data/template/
+
+# Asegurar que el contenido de las carpetas permitidas también se suba
+!api-geogf/data/bin/**
+!api-geogf/data/scripts/**
+!api-geogf/data/template/**

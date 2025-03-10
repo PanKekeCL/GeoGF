@@ -22,13 +22,12 @@ const Project = () => {
   const [data, setData] = useState({
     nombre: '',
     descripcion: '',
-    geometry: {type: null, coordinates: [0,0]},
+    geometry: {type: "Point", coordinates: [0,0]},
     minijuegos: [],
     id_administrador: user._id
   });
 
   // Estado para manejar errores
-  const [error, setError] = useState('');
   const [hasFetched, setHasFetched] = useState(false);  // Estado para verificar si ya se hizo la consulta
 
   useEffect(() => {
@@ -47,7 +46,6 @@ const Project = () => {
           }
         } catch (error) {
           console.error('Error al obtener el proyecto:', error);
-          setError('Hubo un error al cargar el proyecto.');
         } finally {
           setHasFetched(true);  // Marcar como consultado para evitar reintentos
         }
@@ -66,30 +64,27 @@ const Project = () => {
   };
 
   const handleMinigamesChange = (newMinigames) => {
-    console.log("Nueva data recibida: ", newMinigames)
+    console.log("Nueva data recibida: ", newMinigames);
     setData((prevData) => ({
       ...prevData,
-      minijuegos: newMinigames  // Actualiza solo el atributo paginas
+      minijuegos: newMinigames // Actualiza los minijuegos
     }));
   };
 
   const handleSubmit = async () => {
-    // Crear el objeto apiData con los datos del minijuego, añadiendo administrador y última modificación
+    console.log("Datos enviados:", data); // Verifica si las coordenadas están correctas antes de guardarlas
     const ahora = new Date();
     const outputData = {
       ...data,
       ultimaModificacion: ahora, // Añade la fecha y hora actual
     };
     try {
-      // Si el proyecto tiene ID, se actualiza
       const response = await saveProject(outputData);
       if (ID !== response._id) {
         navigate(`/project?id=${response._id}`);
       }
     } catch (err) {
-      // Manejo de errores
       console.error('Error al guardar el proyecto:', err);
-      setError('Hubo un problema al guardar el proyecto.');
     }
   };
 

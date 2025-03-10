@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import BackIcon from '../assets/icons/backIcon';
+import { MapContainer, TileLayer, Marker} from 'react-leaflet';
 import L from 'leaflet';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 
-const DesignsToBuild = ({ selectedMinigames = [], selectedProject = null, onBuild }) => {
+const DesignsToBuild = ({ selectedMinigames = [], selectedProject = null, onBuild, loading = false }) => {
   const [info, setInfo] = useState(null);
+
+  const customIcon = L.icon({
+    iconUrl: require("../assets/icons/marker.png"), // Ruta a la imagen
+    iconSize: [20, 27.5], // Tamaño del icono en el mapa
+    iconAnchor: [10, 27.5], // Punto de anclaje desde esquina superior izquierda (centro inferior)
+    popupAnchor: [0, -27.5], // Posicion del popup desde punto de anclaje (centro superior)
+  });
 
   return (
     <div className="flex flex-col h-full bg-white relative">
@@ -47,7 +54,7 @@ const DesignsToBuild = ({ selectedMinigames = [], selectedProject = null, onBuil
             <h2 className="text-lg font-semibold text-gray-700 mr-2">Proyecto</h2>
             <button
               className="text-gray-500 hover:text-gray-700"
-              onClick={() => alert('Un proyecto cuenta con un mapa centrado en una ubicacion, y minijuegos que se muestran ubicados sobre el mapa.')}
+              onClick={() => alert('Selecciona un proyecto para construir. Este cuenta con un mapa centrado en una ubicacion y minijuegos ubicados en él.')}
             >
               ?
             </button>
@@ -99,8 +106,7 @@ const DesignsToBuild = ({ selectedMinigames = [], selectedProject = null, onBuil
                     <Marker position={[
                       selectedProject.geometry.coordinates[1], // latitud
                       selectedProject.geometry.coordinates[0], // longitud
-                    ]}>
-                      <Popup>{selectedProject.nombre}</Popup>
+                    ]} icon={customIcon}>
                     </Marker>
                   </MapContainer>
                 ) : (
@@ -120,7 +126,7 @@ const DesignsToBuild = ({ selectedMinigames = [], selectedProject = null, onBuil
             <h2 className="text-lg font-semibold text-gray-700 mr-2">Minijuegos</h2>
             <button
               className="text-gray-500 hover:text-gray-700"
-              onClick={() => alert('Estos minijuegos no se encuentran ubicados sobre el mapa, pero pueden ser accedidos a traves de un listado.')}
+              onClick={() => alert('Puedes añadir minijuegos libres. Estos minijuegos no apareceran ubicados en el mapa, pero si en una lista.')}
             >
               ?
             </button>
@@ -159,14 +165,14 @@ const DesignsToBuild = ({ selectedMinigames = [], selectedProject = null, onBuil
       {/* Botón "Construir" */}
       <div className="p-4 bg-white shadow">
         <button
-          className={`w-full h-12 rounded-md font-semibold ${selectedProject || selectedMinigames.length > 0
-            ? "bg-blue-500 text-white hover:bg-blue-600"
-            : "bg-gray-200 text-gray-400 cursor-not-allowed"
+          className={`w-full h-12 rounded-md font-semibold ${selectedProject || selectedMinigames.length > 0 || !loading
+              ? "bg-blue-500 text-white hover:bg-blue-600"
+              : "bg-gray-200 text-gray-400 cursor-not-allowed"
             }`}
-          disabled={!selectedProject && selectedMinigames.length === 0}
+          disabled={(!selectedProject && selectedMinigames.length === 0) || loading}
           onClick={onBuild}
         >
-          Construir
+          {loading ? "Construyendo..." : "Construir"}
         </button>
       </div>
     </div>

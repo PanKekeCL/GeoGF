@@ -139,8 +139,8 @@ if __name__ == "__main__":
     print(f"El código se está ejecutando en el directorio: {os.getcwd()}")
 
     # Rutas para la plantilla y la copia
-    template_path = os.path.join(os.getcwd(), 'data', 'template2')  # Ruta de la plantilla
-    copy_path = os.path.join(os.getcwd(), 'data', 'template2_copy')  # Ruta para la copia
+    template_path = os.path.join(os.getcwd(), 'data', 'template')  # Ruta de la plantilla
+    copy_path = os.path.abspath(os.path.join(os.getcwd(), '..', 'your_project')) # Ruta del proyecto construido
 
     # Ejecutar el proceso de prebuild con el input proporcionado
     prebuild_project(input_data, template_path, copy_path)

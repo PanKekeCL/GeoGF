@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import DeleteIcon from "../assets/icons/deleteIcon.js";
 import EditIcon from "../assets/icons/editIcon.js";
 import BoxIcon from "../assets/icons/boxIcon.js";
-import CrossIcon from "../assets/icons/crossIcon.js";
 
 const ProjectList = ({ items = [], loading, onEditClick, onDeleteClick, onSelectClick, selectedProject = null}) => {
 
@@ -49,12 +48,7 @@ const ProjectList = ({ items = [], loading, onEditClick, onDeleteClick, onSelect
                                     >
                                         {item.nombre || "Sin título"}
                                     </h3>
-                                    <p
-                                        className={`text-sm ${!item.tipo ? "text-gray-400" : "text-gray-600"
-                                            }`}
-                                    >
-                                        {item.tipo || "Tipo no seleccionado"}
-                                    </p>
+                                    
                                     <p
                                         className={`text-xs ${!item.descripcion ? "text-gray-400" : "text-gray-600"
                                             }`}

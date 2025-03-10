@@ -6,8 +6,7 @@ import ProjectList from './projectList';
 const BuildableDesigns = ({ minigames, projects, selectedMinigames = [], selectedProject = null, onSelectMinigame, onSelectProject }) => {
   const [activeTab, setActiveTab] = useState('proyectos');
   const [searchTerm, setSearchTerm] = useState('');
-  const [sortBy, setSortBy] = useState('nombre');
-  const [sortOrder, setSortOrder] = useState('asc');
+  const [sortBy, setSortBy] = useState('fecha');
 
   const removeAccents = (str) => {
     return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
@@ -15,16 +14,14 @@ const BuildableDesigns = ({ minigames, projects, selectedMinigames = [], selecte
 
   // Filtrar y ordenar los ítems según la pestaña activa
   const filteredItems = (activeTab === 'minijuegos' ? minigames : projects)
-    .filter((item) => 
+    .filter((item) =>
       removeAccents(item.nombre.toLowerCase()).includes(removeAccents(searchTerm.toLowerCase()))
     )
     .sort((a, b) => {
       if (sortBy === 'nombre') {
-        return sortOrder === 'asc' ? a.nombre.localeCompare(b.nombre) : b.nombre.localeCompare(a.nombre);
+        return a.nombre.localeCompare(b.nombre);
       } else if (sortBy === 'fecha') {
-        const dateA = new Date(a.fecha);
-        const dateB = new Date(b.fecha);
-        return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
+        return new Date(b.ultimaModificacion).getTime() - new Date(a.ultimaModificacion).getTime();
       }
       return 0;
     });
@@ -38,7 +35,7 @@ const BuildableDesigns = ({ minigames, projects, selectedMinigames = [], selecte
           className={`flex-1 p-5 mx-1 font-semibold ${activeTab === 'minijuegos'
             ? 'border-b-4 border-[#97F218]'
             : 'text-gray-400'
-          }`}
+            }`}
         >
           Tus minijuegos
         </button>
@@ -47,7 +44,7 @@ const BuildableDesigns = ({ minigames, projects, selectedMinigames = [], selecte
           className={`flex-1 p-5 mx-1 font-semibold ${activeTab === 'proyectos'
             ? 'border-b-4 border-[#97F218]'
             : 'text-gray-400'
-          }`}
+            }`}
         >
           Tus proyectos
         </button>
@@ -75,12 +72,6 @@ const BuildableDesigns = ({ minigames, projects, selectedMinigames = [], selecte
             <option value="nombre">Alfabéticamente</option>
             <option value="fecha">Más recientes</option>
           </select>
-          <button
-            onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
-            className="p-2 border border-gray-300 rounded-md bg-gray-100 text-gray-700"
-          >
-            {sortOrder === 'asc' ? 'Asc' : 'Desc'}
-          </button>
         </div>
       </div>
 

@@ -32,6 +32,10 @@ const Trivia = ({ data, handlePageChange }) => {
     const handleUploadImage = (e) => {
         const file = e.target.files[0];
         if (file) {
+            if (file.size > 10 * 1024 * 1024) {
+                alert('El tamaño máximo permitido para la imagen es de 10 MB.');
+                return;
+            }
             const reader = new FileReader();
             reader.onloadend = () => {
                 const updatedPage = { ...page, imagen: reader.result };

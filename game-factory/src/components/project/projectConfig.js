@@ -1,39 +1,61 @@
-import React, { useState, useEffect } from "react";
-import { MapContainer, TileLayer, Marker } from "react-leaflet";
+import React, { useState, useEffect, useRef } from "react";
+import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet";
 import { Link } from 'react-router-dom';
 import "leaflet/dist/leaflet.css";
 import BackIcon from "../../assets/icons/backIcon";
 import PinIcon from "../../assets/icons/pinIcon";
 import SaveIcon from "../../assets/icons/saveIcon";
 import PlaceOnMap from "./placeOnMap";
+import L from 'leaflet';
 
 const ProjectConfig = ({ data, handleConfigChange, handleSubmit }) => {
     const [isMapOpen, setIsMapOpen] = useState(false);
+    const mapRef = useRef(null); // Referencia al mapa
+
     const [config, setConfig] = useState({
         nombre: "",
         descripcion: "",
         geometry: {
             type: "Point",
-            coordinates: [-73.247, -39.814]
+            coordinates: [-73.2452, -39.8335]
         }
     });
 
+    // Hook para centrar el mapa cuando las coordenadas cambian
+    const MapUpdater = ({ coordinates }) => {
+        const map = useMap();
+        const currentZoom = map.getZoom();
+        useEffect(() => {
+            if (map && coordinates.length === 2) {
+                map.setView([coordinates[1], coordinates[0]], currentZoom); // Centrar mapa
+            }
+        }, [coordinates, map]);
+        return null;
+    };
+
     useEffect(() => {
-        if (data) {
-            setConfig((prevConfig) => ({
+        if (data?.geometry?.coordinates?.length === 2) {
+            setConfig(prevConfig => ({
                 ...prevConfig,
-                nombre: data.nombre || "",
-                descripcion: data.descripcion || "",
+                nombre: data.nombre ?? prevConfig.nombre,
+                descripcion: data.descripcion ?? prevConfig.descripcion,
                 geometry: {
                     ...prevConfig.geometry,
-                    coordinates: [
-                        data.geometry?.coordinates[0] || -73.247,
-                        data.geometry?.coordinates[1] || -39.814
-                    ]
+                    coordinates: data.geometry.coordinates
                 }
             }));
         }
     }, [data]);
+
+    useEffect(() => {
+        if (mapRef.current) {
+            const map = mapRef.current;
+            const currentZoom = map.getZoom(); // Obtener el zoom actual
+            const { coordinates } = config.geometry;
+            map.setView([coordinates[1], coordinates[0]], currentZoom); // Mantener el zoom actual
+        }
+    }, [config.geometry.coordinates]);
+
 
     const handleInputChange = (e, field) => {
         const { value } = e.target;
@@ -68,19 +90,29 @@ const ProjectConfig = ({ data, handleConfigChange, handleSubmit }) => {
     };
 
     const handleConfirmLocation = (position) => {
-        setConfig({
+        const updatedConfig = {
             ...config,
             geometry: {
                 ...config.geometry,
                 coordinates: [position.lng, position.lat]
             }
-        });
+        };
+    
+        setConfig(updatedConfig);
+        handleConfigChange(updatedConfig); // Asegurar que el cambio se propague
         setIsMapOpen(false);
     };
 
     const handleCancelLocation = () => {
         setIsMapOpen(false);
     };
+
+    const customIcon = L.icon({
+        iconUrl: require("../../assets/icons/marker.png"), // Ruta a la imagen
+        iconSize: [20, 27.5], // Tamaño del icono en el mapa
+        iconAnchor: [10, 27.5], // Punto de anclaje desde esquina superior izquierda (centro inferior)
+        popupAnchor: [0, -27.5], // Posicion del popup desde punto de anclaje (centro superior)
+      });
 
     return (
         <div className="h-full bg-white p-5 flex flex-col">
@@ -165,18 +197,20 @@ const ProjectConfig = ({ data, handleConfigChange, handleSubmit }) => {
                         zoom={14}
                         style={{ height: "100%", width: "100%" }}
                         attributionControl={false}
+                        ref={mapRef}
                     >
                         <TileLayer
                             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                             attribution="&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors"
                         />
-                        <Marker position={[config.geometry.coordinates[1], config.geometry.coordinates[0]]} />
+                        <Marker position={[config.geometry.coordinates[1], config.geometry.coordinates[0]]} icon={customIcon} />
+                        <MapUpdater coordinates={config.geometry.coordinates} />
                         {data?.minijuegos?.map((minigame, index) => {
                             const lat = minigame.geometry?.coordinates ? minigame.geometry.coordinates[1] : null;
                             const lng = minigame.geometry?.coordinates ? minigame.geometry.coordinates[0] : null;
 
                             if (lat !== null && lng !== null && !isNaN(lat) && !isNaN(lng)) {
-                                return <Marker key={index} position={[lat, lng]} />;
+                                return <Marker key={index} position={[lat, lng]} icon={customIcon} />;
                             }
                             return null;
                         })}
@@ -191,14 +225,15 @@ const ProjectConfig = ({ data, handleConfigChange, handleSubmit }) => {
                     Guardar cambios a Proyecto
                 </button>
             </form>
+
             {isMapOpen && (
-                    <PlaceOnMap
-                        initialLat={config.geometry.coordinates[1]}
-                        initialLng={config.geometry.coordinates[0]}
-                        onConfirm={handleConfirmLocation}
-                        onCancel={handleCancelLocation}
-                    />
-                )}
+                <PlaceOnMap
+                    initialLat={config.geometry.coordinates[1]}
+                    initialLng={config.geometry.coordinates[0]}
+                    onConfirm={handleConfirmLocation}
+                    onCancel={handleCancelLocation}
+                />
+            )}
         </div>
     );
 };

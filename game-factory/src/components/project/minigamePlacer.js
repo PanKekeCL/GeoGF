@@ -42,6 +42,16 @@ const MinigamePlacer = ({ selectedMinigames = [], handleMinigamesChange }) => {
   };
 
   const handlePlaceOnMap = (id) => {
+    const minigame = selectedMinigames.find(game => game._id === id);
+  
+    setCoordinates((prev) => ({
+      ...prev,
+      [id]: prev[id] || {
+        lat: minigame?.geometry?.coordinates?.[1] || 0,
+        lng: minigame?.geometry?.coordinates?.[0] || 0,
+      },
+    }));
+  
     setCurrentGameId(id);
     setIsMapOpen(true);
   };

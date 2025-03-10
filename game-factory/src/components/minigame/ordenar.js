@@ -61,6 +61,11 @@ const Ordenar = ({ data, handlePageChange }) => {
     const handleFileChange = (e, index) => {
         const file = e.target.files[0];
 
+        if (file && file.size > 10 * 1024 * 1024) {
+            alert('El tamaño máximo permitido para la imagen es de 10 MB.');
+            return;
+        }
+
         const reader = new FileReader();
         reader.onload = () => {
             const updatedConceptos = page.conceptos.map((concepto, i) =>
@@ -70,7 +75,7 @@ const Ordenar = ({ data, handlePageChange }) => {
             setPage(updatedPage);
             handlePageChange(updatedPage);
         };
-        reader.readAsDataURL(file);  // Leemos el archivo como URL base64
+        reader.readAsDataURL(file);
     };
 
     const handleRemoveImage = (index) => {

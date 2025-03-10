@@ -33,6 +33,11 @@ const Emparejar = ({ data, handlePageChange }) => {
     const handlePairChange = (e, index, side) => {
         const file = e.target.files ? e.target.files[0] : null;
         if (file) {
+            if (file.size > 10 * 1024 * 1024) { // 10MB en bytes
+                alert("El archivo supera el límite de 10 MB. Por favor, sube una imagen más pequeña.");
+                return;
+            }
+            
             const reader = new FileReader();
             reader.onloadend = () => {
                 updatePair(index, side === "izquierda" ? "imagenIzquierda" : "imagenDerecha", reader.result);

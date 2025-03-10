@@ -5294,3 +5294,296 @@
 2025-01-30 15:34:29,291 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 10 minigames.
 2025-01-30 15:34:29,306 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 4 projects.
 2025-01-30 15:34:29,322 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 4 projects.
+2025-02-04 20:02:01,010 - API_GEOGF - INFO - ../login, FROM: 127.0.0.1, DETAIL: Successful login for sebaoyarzunruiz@gmail.com
+2025-02-04 20:02:04,565 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 10 minigames.
+2025-02-04 20:02:04,581 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 4 projects.
+2025-02-04 20:02:04,599 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 10 minigames.
+2025-02-04 20:02:04,613 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 4 projects.
+2025-02-04 20:04:00,083 - API_GEOGF - INFO - /minigames, FROM: 127.0.0.1, DETAIL: Nuevo minigame creado con ID 67a29ce00976e344ea7eaccd
+2025-02-04 20:49:51,021 - API_GEOGF - INFO - /minigames/67a29ce00976e344ea7eaccd, FROM: 127.0.0.1, DETAIL: minigame actualizado con ID 67a29ce00976e344ea7eaccd
+2025-02-04 20:50:03,018 - API_GEOGF - INFO - /minigames/67a29ce00976e344ea7eaccd, FROM: 127.0.0.1, DETAIL: minigame actualizado con ID 67a29ce00976e344ea7eaccd
+2025-02-04 20:50:03,585 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 11 minigames.
+2025-02-04 20:50:03,599 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 4 projects.
+2025-02-04 20:50:03,615 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 4 projects.
+2025-02-04 20:50:03,625 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 11 minigames.
+2025-02-04 20:59:58,463 - API_GEOGF - INFO - /minigames, FROM: 127.0.0.1, DETAIL: Nuevo minigame creado con ID 67a2a9fe0976e344ea7eacce
+2025-02-04 21:00:03,681 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 4 projects.
+2025-02-04 21:00:03,694 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 12 minigames.
+2025-02-04 21:00:03,739 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 4 projects.
+2025-02-04 21:00:03,757 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 12 minigames.
+2025-02-04 21:09:35,818 - API_GEOGF - ERROR - /minigames, FROM: 127.0.0.1, ERROR: BSON document too large (28961297 bytes) - the connected server supports BSON document sizes up to 16793598 bytes.
+2025-02-04 21:09:40,727 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 12 minigames.
+2025-02-04 21:09:40,766 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 4 projects.
+2025-02-04 21:09:40,783 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 12 minigames.
+2025-02-04 21:09:40,828 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 4 projects.
+2025-02-04 21:09:42,330 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 12 minigames.
+2025-02-04 21:09:42,389 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 12 minigames.
+2025-02-04 21:10:34,923 - API_GEOGF - INFO - /projects, FROM: 127.0.0.1, DETAIL: Project created with ID: 67a2ac7a0976e344ea7eacd0 .
+2025-02-04 21:10:35,776 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 12 minigames.
+2025-02-04 21:10:35,811 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-04 21:10:35,864 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-04 21:10:35,905 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 12 minigames.
+2025-02-04 21:10:49,470 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 12 minigames.
+2025-02-04 21:10:49,511 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-04 21:10:49,571 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 12 minigames.
+2025-02-04 21:10:49,608 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-04 21:12:05,124 - API_GEOGF - INFO - /minigames, FROM: 127.0.0.1, DETAIL: Nuevo minigame creado con ID 67a2acd50976e344ea7eacd1
+2025-02-04 21:12:57,401 - API_GEOGF - INFO - /minigames/67a2acd50976e344ea7eacd1, FROM: 127.0.0.1, DETAIL: minigame actualizado con ID 67a2acd50976e344ea7eacd1
+2025-02-04 21:14:33,684 - API_GEOGF - ERROR - /minigames/67a2acd50976e344ea7eacd1, FROM: 127.0.0.1, ERROR: 'update' command document too large
+2025-02-04 21:16:21,246 - API_GEOGF - ERROR - /minigames/67a2acd50976e344ea7eacd1, FROM: 127.0.0.1, ERROR: 'update' command document too large
+2025-02-04 21:16:21,294 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-04 21:16:21,324 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-04 21:16:21,360 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-04 21:16:21,398 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-04 21:16:21,433 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-04 21:16:21,477 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-04 21:16:50,514 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-04 21:16:50,553 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-04 21:16:50,614 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-04 21:16:50,661 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-04 21:16:57,233 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-04 21:16:57,338 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-04 21:21:47,378 - API_GEOGF - INFO - /projects/67a2ac7a0976e344ea7eacd0, FROM: 127.0.0.1, DETAIL: Project updated with ID: <built-in function id>
+2025-02-04 21:21:52,947 - API_GEOGF - INFO - /projects/67a2ac7a0976e344ea7eacd0, FROM: 127.0.0.1, DETAIL: Project updated with ID: <built-in function id>
+2025-02-04 21:21:53,719 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-04 21:21:53,769 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-04 21:22:01,933 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-04 21:22:01,972 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-04 21:22:02,022 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-04 21:22:02,068 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-04 21:22:06,787 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-04 21:22:06,835 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-04 21:22:06,891 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-04 21:22:06,927 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-04 21:22:06,984 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-04 21:22:07,042 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-04 21:25:45,618 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-04 21:25:45,653 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-04 21:25:45,709 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-04 21:25:45,761 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-04 21:26:11,890 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-04 21:26:11,926 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-04 21:26:11,987 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-04 21:26:12,026 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-04 21:26:18,145 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-04 21:26:18,183 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-04 21:26:18,238 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-04 21:26:18,282 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-04 21:27:23,859 - API_GEOGF - INFO - /minigames/67a2acd50976e344ea7eacd1, FROM: 127.0.0.1, DETAIL: minigame actualizado con ID 67a2acd50976e344ea7eacd1
+2025-02-04 21:27:24,437 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-04 21:27:24,478 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-04 21:27:24,535 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-04 21:27:24,578 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-04 21:27:25,854 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-04 21:27:25,904 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-04 21:27:25,960 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-04 21:27:25,996 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-04 21:27:26,049 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-04 21:27:26,110 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-04 21:27:49,473 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-04 21:27:49,511 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-04 21:27:49,574 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-04 21:27:49,618 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-04 21:27:55,841 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-04 21:27:55,937 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-04 21:27:57,262 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-04 21:27:57,312 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-04 21:28:18,933 - API_GEOGF - INFO - /projects/67a2ac7a0976e344ea7eacd0, FROM: 127.0.0.1, DETAIL: Project updated with ID: <built-in function id>
+2025-02-04 21:28:19,759 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-04 21:28:19,801 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-04 21:28:19,857 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-04 21:28:19,901 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-04 21:28:21,715 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-04 21:28:21,765 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-04 21:28:21,832 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-04 21:28:21,872 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-04 21:28:21,930 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-04 21:28:21,988 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-04 21:30:15,002 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-04 21:30:15,046 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-04 21:30:15,108 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-04 21:30:15,156 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-04 21:30:17,282 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-04 21:30:17,382 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-04 21:30:22,685 - API_GEOGF - INFO - /projects/67a2ac7a0976e344ea7eacd0, FROM: 127.0.0.1, DETAIL: Project updated with ID: <built-in function id>
+2025-02-04 21:30:23,559 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-04 21:30:23,599 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-04 21:30:23,656 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-04 21:30:23,700 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-04 21:30:24,530 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-04 21:30:24,591 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-04 21:30:24,650 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-04 21:30:24,686 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-04 21:30:24,746 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-04 21:30:24,809 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-04 21:30:55,355 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-04 21:30:55,407 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-04 21:30:55,468 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-04 21:30:55,510 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-04 21:31:11,291 - API_GEOGF - INFO - /minigames/67a29ce00976e344ea7eaccd, FROM: 127.0.0.1, DETAIL: minigame actualizado con ID 67a29ce00976e344ea7eaccd
+2025-02-04 21:31:12,654 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-04 21:31:12,691 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-04 21:31:12,745 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-04 21:31:12,796 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-04 21:31:17,282 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-04 21:31:17,331 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-04 21:31:17,386 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-04 21:31:17,434 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-04 21:31:17,487 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-04 21:31:17,538 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-06 20:53:57,737 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-06 20:53:57,788 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-06 20:53:57,859 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-06 20:53:57,910 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-06 21:01:59,079 - API_GEOGF - INFO - /minigames/67a2acd50976e344ea7eacd1, FROM: 127.0.0.1, DETAIL: minigame actualizado con ID 67a2acd50976e344ea7eacd1
+2025-02-06 21:01:59,098 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-06 21:01:59,135 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-06 21:01:59,187 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-06 21:01:59,239 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-06 21:02:09,094 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-06 21:02:09,251 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-06 21:03:33,946 - API_GEOGF - INFO - /projects/67a2ac7a0976e344ea7eacd0, FROM: 127.0.0.1, DETAIL: Project updated with ID: <built-in function id>
+2025-02-06 21:04:20,667 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-06 21:04:20,718 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-06 21:04:20,789 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-06 21:04:20,857 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-06 21:04:23,810 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-06 21:04:23,933 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-06 21:04:32,878 - API_GEOGF - INFO - /projects/67a2ac7a0976e344ea7eacd0, FROM: 127.0.0.1, DETAIL: Project updated with ID: <built-in function id>
+2025-02-06 21:06:27,023 - API_GEOGF - INFO - /projects/67a2ac7a0976e344ea7eacd0, FROM: 127.0.0.1, DETAIL: Project updated with ID: <built-in function id>
+2025-02-06 21:09:10,303 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-06 21:09:10,412 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-06 21:09:20,272 - API_GEOGF - INFO - /projects/67a2ac7a0976e344ea7eacd0, FROM: 127.0.0.1, DETAIL: Project updated with ID: <built-in function id>
+2025-02-06 21:11:01,760 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-06 21:11:01,811 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-06 21:11:01,882 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-06 21:11:01,944 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-06 21:11:02,690 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-06 21:11:02,750 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-06 21:11:02,821 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-06 21:11:02,880 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-06 21:11:02,951 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-06 21:11:03,019 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-16 22:34:55,579 - API_GEOGF - INFO - /projects, FROM: 127.0.0.1, DETAIL: Project created with ID: 67b2923f13d9b40fa75cbc85 .
+2025-02-16 22:35:17,016 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-16 22:35:17,084 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-16 22:35:20,241 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-16 22:35:20,306 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-16 22:43:20,975 - API_GEOGF - INFO - /projects/67b2923f13d9b40fa75cbc85, FROM: 127.0.0.1, DETAIL: Project updated with ID: <built-in function id>
+2025-02-16 22:45:46,195 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-16 22:45:46,261 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-16 22:45:46,332 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 6 projects.
+2025-02-16 22:45:46,402 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-16 22:45:46,494 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 6 projects.
+2025-02-16 22:45:46,582 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 6 projects.
+2025-02-16 22:46:09,363 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-16 22:46:09,452 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-16 22:47:46,109 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-16 22:47:46,210 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-16 22:49:45,662 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-16 22:49:45,770 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-16 22:52:42,192 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-16 22:52:42,289 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-16 22:53:08,167 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-16 22:53:08,236 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-16 22:53:41,179 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-16 22:53:41,252 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-16 22:54:04,010 - API_GEOGF - INFO - /projects/67b2923f13d9b40fa75cbc85, FROM: 127.0.0.1, DETAIL: Project updated with ID: <built-in function id>
+2025-02-20 13:56:31,623 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 13:56:31,690 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 6 projects.
+2025-02-20 13:56:31,760 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 13:56:31,835 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 6 projects.
+2025-02-20 13:56:37,157 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 13:56:37,222 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 13:56:37,298 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 13:56:37,346 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 6 projects.
+2025-02-20 13:56:37,412 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 6 projects.
+2025-02-20 13:56:37,487 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 6 projects.
+2025-02-20 13:57:55,047 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 13:57:55,117 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 13:57:55,189 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 6 projects.
+2025-02-20 13:57:55,249 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 13:57:55,316 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 6 projects.
+2025-02-20 13:57:55,389 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 6 projects.
+2025-02-20 13:58:45,304 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 13:58:45,374 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 13:58:45,453 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 6 projects.
+2025-02-20 13:58:45,532 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 6 projects.
+2025-02-20 14:01:37,241 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 14:01:37,315 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 14:01:37,390 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 6 projects.
+2025-02-20 14:01:37,465 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 6 projects.
+2025-02-20 14:03:32,175 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 14:03:32,261 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 14:03:32,358 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 6 projects.
+2025-02-20 14:03:32,585 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 6 projects.
+2025-02-20 14:05:39,390 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 14:05:39,473 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 14:05:39,573 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 6 projects.
+2025-02-20 14:05:39,656 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 6 projects.
+2025-02-20 14:06:26,559 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 14:06:26,650 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 14:06:26,731 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 6 projects.
+2025-02-20 14:06:26,815 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 6 projects.
+2025-02-20 14:13:29,210 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 14:13:29,299 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 14:13:29,397 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 6 projects.
+2025-02-20 14:13:29,478 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 6 projects.
+2025-02-20 14:24:46,500 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 14:24:46,547 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 6 projects.
+2025-02-20 14:24:46,641 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 6 projects.
+2025-02-20 14:24:46,703 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 14:24:50,530 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 14:24:50,724 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 14:25:26,625 - API_GEOGF - INFO - /projects/67a2ac7a0976e344ea7eacd0, FROM: 127.0.0.1, DETAIL: Project updated with ID: <built-in function id>
+2025-02-20 14:25:48,867 - API_GEOGF - INFO - /projects/67a2ac7a0976e344ea7eacd0, FROM: 127.0.0.1, DETAIL: Project updated with ID: <built-in function id>
+2025-02-20 14:28:38,547 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 14:28:38,601 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 6 projects.
+2025-02-20 14:28:38,675 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 14:28:38,735 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 6 projects.
+2025-02-20 14:29:41,132 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 6 projects.
+2025-02-20 14:29:41,175 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 14:29:41,260 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 6 projects.
+2025-02-20 14:29:41,310 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 14:29:56,684 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 14:29:56,738 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 6 projects.
+2025-02-20 14:29:56,824 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 14:29:56,906 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 6 projects.
+2025-02-20 14:30:24,494 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 14:30:24,549 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 6 projects.
+2025-02-20 14:30:24,641 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 6 projects.
+2025-02-20 14:30:24,689 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 14:32:08,128 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 14:32:08,188 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 6 projects.
+2025-02-20 14:32:08,263 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 14:32:08,324 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 6 projects.
+2025-02-20 14:32:23,046 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 14:32:23,101 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 6 projects.
+2025-02-20 14:32:23,177 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 14:32:23,247 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 6 projects.
+2025-02-20 14:36:21,832 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 14:36:21,899 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-20 14:36:22,001 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 14:36:22,076 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-20 14:39:03,958 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 14:39:04,040 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 14:42:21,965 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 14:42:22,079 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 14:42:30,615 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 14:42:30,667 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-20 14:42:30,740 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 14:42:30,802 - API_GEOGF - INFO - /projects/administrador/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 5 projects.
+2025-02-20 14:45:54,492 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 14:45:54,580 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 14:52:06,209 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 14:52:06,272 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 14:52:07,666 - API_GEOGF - INFO - /projects/679bc629b73000d63b655281, FROM: 127.0.0.1, DETAIL: Project updated with ID: <built-in function id>
+2025-02-20 14:52:44,137 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 14:52:44,231 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 14:54:36,879 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 14:54:36,981 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 15:00:15,719 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 15:00:15,786 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 15:02:16,307 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 15:02:16,404 - API_GEOGF - INFO - /minigames/admin_id/677c8d6d155c1ffd824b2df4, FROM: 127.0.0.1, DETAIL: Found 13 minigames.
+2025-02-20 15:02:39,106 - API_GEOGF - INFO - /projects/679bc629b73000d63b655281, FROM: 127.0.0.1, DETAIL: Project updated with ID: <built-in function id>

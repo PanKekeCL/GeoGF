@@ -336,6 +336,8 @@ async def build_project(project: schemas.Proyecto, request: Request):
         project_data = project.dict()
         script_path = os.path.join(os.getcwd(), 'data', 'scripts', 'beforeBuilding.py')
 
+        print(f"BUILD: Cabecera del JSON - {json.dumps(project_data)[:100]}...")
+
         # Crear un archivo temporal para almacenar el JSON
         with tempfile.NamedTemporaryFile(delete=False, suffix=".json", mode="w", encoding="utf-8") as temp_file:
             json.dump(project_data, temp_file)

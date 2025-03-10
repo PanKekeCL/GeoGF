@@ -16,7 +16,7 @@ const Build = () => {
 
   // COtras constantes y funciones
   const [hasFetched, setHasFetched] = useState(false);
-  const { getMinigamesByAdminID, getProjectsByAdminID, buildProject } = useApi(); // Obtén las funciones de la API
+  const { getMinigamesByAdminID, getProjectsByAdminID, buildProject, loading } = useApi(); // Obtén las funciones de la API
   const { user } = useAuth();
   const userID = user._id
 
@@ -123,7 +123,8 @@ const Build = () => {
           <DesignsToBuild
             selectedMinigames={selectedMinigames}
             selectedProject={selectedProject}
-            onBuild={handleBuild} />
+            onBuild={handleBuild}
+            loading={loading} />
         </div>
 
         <div className="w-2/3 h-full overflow-auto">
