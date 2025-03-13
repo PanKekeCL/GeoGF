@@ -1,1 +1,0 @@
-# Este codigo debe tomar template_copy, renombrarla y moverlo a donde se este corriendo la PWA.

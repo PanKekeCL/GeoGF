@@ -1,3 +1,5 @@
+game_factory/node_modules/
+
 # Ignorar todo dentro de data/
 api-geogf/data/*
 
@@ -10,3 +12,8 @@ api-geogf/data/*
 !api-geogf/data/bin/**
 !api-geogf/data/scripts/**
 !api-geogf/data/template/**
+
+# No se sube a Github ningun proyecto, excepto el de jb_uach y todo en su interior
+pwa_geogf/*
+!pwa_geogf/jb_uach/
+!pwa_geogf/jb_uach/**
